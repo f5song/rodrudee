@@ -82,4 +82,3 @@ window.addEventListener('beforeunload', function() {
     xhr.open('GET', 'unset_session.php', true);
     xhr.send();
 });
-
