@@ -65,15 +65,16 @@ print_r($_SESSION);
                             $menu_id = $row["menu_id"];
                             $count = $menu_counts[$menu_id] ?? 1;
 
+
                             echo '<div class="cart-items" id="cart-item-' . $menu_id . '">';
                             echo '<img class="food-img" src="' . $row["file_path"] . '" alt="' . $row["name"] . '">';
                             echo '<div class="food">';
                             echo '<div class="food-item">' . $row["name"] . '</div>';
                             echo '</div>';
                             echo '<div class="quantity">';
-                            echo '<button class="minus" aria-label="Decrease" type="button" data-menu-id="<?php echo $menu_id; ?>">&minus;</button>';
+                            echo '<button class="minus" aria-label="Decrease" type="button" data-menu-id="' . $menu_id . '" onclick="decreaseValue(' . $menu_id . ', ' . $count . ')">&minus;</button>';
                             echo '<input type="number" class="input-box" value="' . $count . '" min="0" max="10" name="quantity_' . $menu_id . '">';
-                            echo '<button class="plus" aria-label="Increase" type="button" data-menu-id="<?php echo $menu_id; ?>">&plus;</button>';
+                            echo '<button class="plus" aria-label="Increase" type="button" data-menu-id="' . $menu_id . '" onclick="increaseValue(' . $menu_id . ', ' . $count . ')">&plus;</button>';
                             echo '</div>';
                             echo '<div class="price">฿' . $row["price"] . '</div>';
                             echo '<div class="close" onclick="removeCartItem(' . $menu_id . ')"><img src="asset/close.png" alt="ปิด"></div>';
@@ -97,22 +98,6 @@ print_r($_SESSION);
         </form>
     </div>
     <script>
-        function decreaseQuantity(menuId) {
-            var inputBox = document.querySelector('input[name="quantity_' + menuId + '"]');
-            var value = parseInt(inputBox.value);
-            value = isNaN(value) ? 1 : Math.max(value - 1, 1);
-            inputBox.value = value;
-            calculateTotalPrice();
-        }
-
-        function increaseQuantity(menuId) {
-            var inputBox = document.querySelector('input[name="quantity_' + menuId + '"]');
-            var value = parseInt(inputBox.value);
-            value = isNaN(value) ? 1 : Math.min(value + 1, parseInt(inputBox.max));
-            inputBox.value = value;
-            console.log("Increased value:", value);
-            calculateTotalPrice();
-        }
 
         function submitOrder() {
             document.getElementById("order-form").submit();

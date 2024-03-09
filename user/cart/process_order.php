@@ -21,14 +21,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
             $quantity = $_POST['quantity_' . $menu_id];
             echo "Menu ID: $menu_id, Quantity: $quantity<br>";
 
-            // ตรวจสอบว่ามีอยู่แล้วหรือไม่
             $existing_order_sql = "SELECT * FROM orders WHERE table_id = '$table_id' AND menu_id = '$menu_id'";
             $existing_order_result = $conn->query($existing_order_sql);
 
             if ($existing_order_result->num_rows > 0) {
-                echo "Order already exists for Menu ID $menu_id and Table ID $table_id<br>";
+                $update_quantity_sql = "UPDATE orders SET quantity = quantity + '$quantity' 
+                                        WHERE table_id = '$table_id' AND menu_id = '$menu_id'";
+
+                if ($conn->query($update_quantity_sql) !== TRUE) {
+                    echo "Error updating quantity: " . $conn->error;
+                } else {
+                    echo "Order quantity updated successfully<br>";
+                }
             } else {
-                // ดำเนินการต่อการแทรก
                 $price_result = $conn->query("SELECT price FROM menu WHERE menu_id = $menu_id");
                 $price_row = $price_result->fetch_assoc();
                 $price = $price_row['price'];
@@ -40,17 +45,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
                     VALUES ('$table_id', '$menu_id', '$quantity', '$order_status', CURRENT_TIMESTAMP, '$total_price')";
 
                 if ($conn->query($insert_sql) !== TRUE) {
-                    echo "Error: " . $insert_sql . "<br>" . $conn->error;
+                    echo "Error inserting order: " . $conn->error;
                 } else {
                     echo "Order added successfully<br>";
                 }
             }
         }
+
+        session_unset();
+        session_destroy();
     }
     $conn->close();
 } else {
     http_response_code(404);
     echo 'Not Found';
 }
-session_unset();
 ?>
