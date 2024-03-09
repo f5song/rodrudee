@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>รสฤดี - ลงทะเบียน</title>
+</head>
+
+<body>
+
+    <div>
+        <div class="top"></div>
+    </div>
+
+    <div>
+        <div class="text">ลงทะเบียนสำหรับพนักงาน</div>
+    </div>
+
+    <div>
+        <div class="rodruedee">รสฤดี</div>
+    </div>
+
+    <div class="login-container">
+        <div class="login-text">
+            ลงทะเบียนบัญชีพนักงาน
+        </div>
+
+        <div>
+            <form action="register_process.php" method="post">
+
+                <div>
+                    <div class="username-text"> <label for="first-name">ชื่อจริง:</label> </div>
+                    <div class="text-field"> <input type="text" id="first-name" name="first-name" required> </div>
+                </div>
+
+                <div>
+                    <div class="username-text"> <label for="last-name">นามสกุล:</label> </div>
+                    <div class="text-field"> <input type="text" id="last-name" name="last-name" required> </div>
+                </div>
+
+                <div>
+                    <div class="username-text"> <label for="username">ชื่อผู้ใช้:</label> </div>
+                    <div class="text-field"> <input type="text" id="username" name="username" required> </div>
+                </div>
+
+                <div>
+                    <div class="username-text"> <label for="password">รหัสผ่าน:</label> </div>
+                    <div class="text-field"> <input type="password" id="password" name="password" required> </div>
+                </div>
+
+                <div>
+                    <div class="username-text"> <label for="password-confirm">ยืนยันรหัสผ่าน:</label> </div>
+                    <div class="text-field"> <input type="password" id="password-confirm" name="password-confirm" required> </div>
+                </div>
+
+                <div>
+                    <button type="submit" class="login-button">สมัครบัญชีพนักงาน</button>
+                </div>
+
+            </form>
+        </div>
+
+        <div class="menu-order">
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,246 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Moh Luang';
+    background-color: #FFF8EE;
+}
+
+@font-face {
+    font-family: 'Moh Luang';
+    src: url('../../../font/Moh-Luang.otf') format('opentype');
+}
+
+@font-face {
+    font-family: 'PGVIM';
+    src: url('../../../font/PGVIM.ttf') format('opentype');
+}
+
+/* Header */
+header {
+    background-color: #2A435D;
+    padding: 5px;
+    color: white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: clamp(20px, 5vw, 30px);
+    font-family: 'PGVIM';
+}
+
+header img {
+    max-width: 95px;
+    max-height: 30px;
+    margin-right: 8px;
+}
+
+/* Top */
+.queue {
+    background-image: url('banner.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: right;
+    padding: clamp(10px, 2vw, 25px);
+}
+
+.yellow-bar {
+    width: auto;
+    height: clamp(10px, 2vw, 18px);
+    background-color: #FFCC19;
+}
+
+.queue_frame {
+    display: flex;
+    width: clamp(70px, 15vw, 145px);
+    height: clamp(30px, 5vw, 50px);
+    border-radius: clamp(25px, 5vw, 38px);
+    background-color: #FFF8EE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.num_queue {
+    color: rgb(0, 0, 0);
+    font-size: clamp(20px, 4vw, 35px);
+    text-align: right;
+    padding-left: clamp(5px, 1vw, 10px);
+}
+
+.option_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: clamp(50px, 10vw, 80px);
+    background-color: #232D3F;
+}
+
+.option-frame {
+    width: clamp(300px, 60vw, 420px);
+    height: clamp(50px, 10vw, 80px);
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.option {
+    width: clamp(180px, 30vw, 260px);
+    height: clamp(40px, 8vw, 55px);
+    background-color: #FFF8EE;
+    border-radius: clamp(15px, 3vw, 20px);
+    display: flex;
+    flex-direction: row;
+}
+
+.option-name {
+    color: rgb(0, 0, 0);
+    font-size: clamp(20px, 4vw, 30px);
+    padding-left: clamp(10px, 2vw, 15px);
+    padding-top: clamp(5px, 1vw, 11px);
+}
+
+.option-frame img {
+    padding-left: clamp(7px, 1.5vw, 14px);
+}
+
+.option-frame:hover {
+    background-color: #59779a;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Content */
+.table-num {
+    font-size: clamp(24px, 4vw, 64px);
+    margin-top: clamp(10px, 2%, 20px);
+    padding-bottom: clamp(10px, 2%, 25px);
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.table-information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.white-container {
+    background-color: #fff;
+    width: 100%;
+    max-width: clamp(500px, 70%, 1303px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    border-radius: clamp(8px, 2vw, 12px);
+    overflow-x: auto;
+}
+
+.topic {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-size: clamp(16px, 3vw, 46px);
+}
+
+.line-under-topic,
+.line-under-table-order {
+    width: 100%;
+    height: 3px;
+    background-color: #616161;
+    margin-top: clamp(5px, 1%, 10px);
+}
+
+.each-topic,
+.each-order {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25%;
+    height: auto;
+    text-align: center;
+    padding-top: clamp(10px, 2%, 20px);
+    color: #232D3F;
+}
+
+.price {
+    color: crimson;
+}
+
+.total {
+    font-size: clamp(20px, 3vw, 55px);
+    padding-left: clamp(22%, 5%, 22%);
+    color: crimson;
+}
+
+/* Media Queries */
+@media only screen and (max-width: 768px) {
+    .topic {
+        font-size: clamp(12px, 3vw, 18px);
+    }
+
+    .each-topic,
+    .each-order {
+        width: 100%;
+    }
+
+    .table-num {
+        font-size: clamp(19px, 3vw, 30px);
+    }
+    /* total */
+    .total {
+        font-size: clamp(19px, 3vw, 30px);
+        padding-left: 10%;
+    }
+
+    .button {
+        padding: clamp(4px, 1vw, 8px) clamp(10px, 2%, 15px);
+        font-size: clamp(14px, 3vw, 18px);
+        margin-right: clamp(10px, 2%, 20px);
+    }
+
+    .button:last-child {
+        margin-right: 0;
+    }
+}
+
+/* Pay Method */
+.pay-method {
+    display: flex;
+    justify-content: center;
+    margin-top: clamp(20px, 5%, 40px);
+}
+
+.button-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.button {
+    font-family: 'Moh Luang';
+    background-color: #FFCC19;
+    border: none;
+    color: rgb(0, 0, 0);
+    border-radius: clamp(8px, 2vw, 10px);
+    padding: clamp(6px, 1%, 10px) clamp(15px, 2%, 20px);
+    font-size: clamp(16px, 3vw, 35px);
+    cursor: pointer;
+    outline: none;
+    transition: background-color 0.3s ease;
+    margin-right: clamp(20px, 5%, 100px);
+}
+
+.button:last-child {
+    margin-right: 0;
+}
+
+.button:hover {
+    background-color: #fafbd3;
+    cursor: pointer;
+}
+
+.button:active {
+    background-color: #FFCC19;
+}
