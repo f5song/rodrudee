@@ -65,7 +65,7 @@ function handleQuantityChange(menuId) {
   console.log("Menu ID:", menuId, "Quantity changed:", value);
 
   updateDisplayValue(menuId);
-  updateSession(menuId, value);
+  updateSession(menuId, value); // เรียกฟังก์ชันเพื่ออัปเดตที่ server-side
 }
 
     function updateDisplayValue() {
@@ -77,6 +77,7 @@ function handleQuantityChange(menuId) {
           quantityContainer.querySelector(".input-box-value");
 
         if (displayValue) {
+          // ตรวจสอบว่า displayValue ไม่เป็น null ก่อนที่จะใช้
           displayValue.innerText = inputBox.value;
         }
       });
@@ -120,6 +121,7 @@ function updateTotalPrice() {
   var totalPriceElement = document.getElementById("total-price");
 
   if (totalPriceElement) {
+    // ตรวจสอบว่า totalPriceElement ไม่เป็น null
     var currentTotalPrice = parseFloat(
       totalPriceElement.textContent.replace("฿", "").trim()
     );
@@ -132,7 +134,7 @@ function updateTotalPrice() {
     totalPriceElement.textContent = "฿" + newTotalPrice.toFixed(2);
     document.getElementById("total-price-input").value = newTotalPrice;
   } else {
-    console.error("totalPriceElement is null");
+    console.error("totalPriceElement is null"); // ใส่การแจ้งเตือนหรือจัดการตามที่ต้องการ
   }
 }
 
@@ -141,17 +143,17 @@ function submitOrder() {
 }
 
 function updateSession(menuId, quantity) {
-
+  // ดึงข้อมูลจาก input ที่มีชื่อเป็น selectedMenuIds
   var selectedMenuIds = document.querySelector('input[name="selectedMenuIds"]');
   var currentMenuIds = JSON.parse(selectedMenuIds.value);
 
-
+  // อัปเดตจำนวนรายการของเมนู
   currentMenuIds[menuId.toString()] = quantity;
 
-
+  // อัปเดตค่าใน input
   selectedMenuIds.value = JSON.stringify(currentMenuIds);
 
-
+  // ส่ง request โดยใช้ Fetch API
   fetch("update_session.php", {
     method: "POST",
     headers: {
