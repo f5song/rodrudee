@@ -1,12 +1,8 @@
 <?php
 $table_id = isset($_GET['table_id']) ? $_GET['table_id'] : '';
-
 session_start();
-
 $menu_ids = $_SESSION['selectedMenuIds'] ?? [];
 $menu_counts = array_count_values($menu_ids);
-
-print_r($_SESSION);
 ?>
 
 <!DOCTYPE html>

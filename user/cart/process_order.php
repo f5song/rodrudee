@@ -21,11 +21,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
             $quantity = $_POST['quantity_' . $menu_id];
             echo "Menu ID: $menu_id, Quantity: $quantity<br>";
 
+            $price_result = $conn->query("SELECT price FROM menu WHERE menu_id = $menu_id");
+            $price_row = $price_result->fetch_assoc();
+            $price = $price_row['price'];
+            
             $existing_order_sql = "SELECT * FROM orders WHERE table_id = '$table_id' AND menu_id = '$menu_id'";
             $existing_order_result = $conn->query($existing_order_sql);
 
             if ($existing_order_result->num_rows > 0) {
-                $update_quantity_sql = "UPDATE orders SET quantity = quantity + '$quantity' 
+                $update_quantity_sql = "UPDATE orders SET quantity = quantity + '$quantity', 
+                                        price = quantity * '$price' 
                                         WHERE table_id = '$table_id' AND menu_id = '$menu_id'";
 
                 if ($conn->query($update_quantity_sql) !== TRUE) {
@@ -42,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
                 $total_price = $quantity * $price;
 
                 $insert_sql = "INSERT INTO orders (table_id, menu_id, quantity, order_status, order_time, price) 
-                    VALUES ('$table_id', '$menu_id', '$quantity', '$order_status', CURRENT_TIMESTAMP, '$total_price')";
+                    VALUES ('$table_id', '$menu_id', '$quantity', '$order_status', CURRENT_TIMESTAMP, '$price')";
 
                 if ($conn->query($insert_sql) !== TRUE) {
                     echo "Error inserting order: " . $conn->error;
@@ -60,4 +65,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
     http_response_code(404);
     echo 'Not Found';
 }
-?>
