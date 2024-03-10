@@ -39,8 +39,8 @@ $result = $conn->query($sql);
         <div>
             <div class="queue">
                 <!-- <div class="queue_frame"> -->
-                    <!-- <img src="../../asset/queuewithbg.png" alt="queue"> -->
-                    <!-- <div class="num_queue">
+                <!-- <img src="../../asset/queuewithbg.png" alt="queue"> -->
+                <!-- <div class="num_queue">
                         <?php
                         // if ($result) {
                         //     $numBoxes = $result->num_rows;
@@ -48,7 +48,8 @@ $result = $conn->query($sql);
                         // } else {
                         //     echo "0 คิว";
                         // }
-                        // ?>
+                        // 
+                        ?>
                     </div> -->
                 <!-- </div> -->
             </div>
@@ -56,19 +57,22 @@ $result = $conn->query($sql);
         </div>
 
         <div class="option_container">
-            <div class="option-frame selected">
+            <a href="state.php">
                 <div class="option">
                     <img src="../../asset/cooking.png" alt="cooking">
                     <div class="option-name" id="status">เช็คสถานะอาหาร</div>
-                </div>
-            </div>
+            </a>
+        </div>
 
-            <div class="option-frame">
+        <div class="option-frame">
+            <a href="../checkout/search_table/search_table.php">
                 <div class="option">
                     <img src="../../asset/bill.png" alt="bill">
                     <div class="option-name" id="payment">หน้าชำระเงิน</div>
                 </div>
-            </div>
+            </a>
+        </div>
+
         </div>
     </top>
     <div class="content">
@@ -85,7 +89,7 @@ $result = $conn->query($sql);
                     $currentTableId = null;
                     $orderCount = 0;
 
-                    // Loop through each row in the result set
+
                     while ($row = $result->fetch_assoc()) {
                         $tableId = $row['table_id'];
                         $orderId = $row['order_id'];
@@ -93,15 +97,12 @@ $result = $conn->query($sql);
                         $quantity = $row['quantity'];
                         $orderStatus = $row['order_status'];
 
-                        // Check if it's a new table, then start a new contentinbox
+
                         if ($tableId != $currentTableId) {
                             if ($currentTableId !== null) {
-                                // Close the previous contentinbox div
                                 echo '</div>';
                                 echo '</div>';
                             }
-
-                            // Start a new box-test1 for a new table
                             echo '<div class="box-test1">';
                             echo '<div class="headliner">';
                             echo '<div class="text-button">';
@@ -130,14 +131,11 @@ $result = $conn->query($sql);
                         echo '</div>';
                     }
 
-                    // Close the last contentinbox div
                     echo '</div>';
                     echo '</div>';
                 } else {
                     echo "No orders found.";
                 }
-
-                // Close the database connection
                 $conn->close();
                 ?>
 
