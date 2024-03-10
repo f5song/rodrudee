@@ -1,6 +1,6 @@
 <?php
-$table_id = isset($_GET['table_id']) ? $_GET['table_id'] : '';
 session_start();
+$table_id = isset($_GET['table_id']) ? $_GET['table_id'] : '';
 $menu_ids = $_SESSION['selectedMenuIds'] ?? [];
 $menu_counts = array_count_values($menu_ids);
 ?>
@@ -69,7 +69,7 @@ $menu_counts = array_count_values($menu_ids);
                             echo '</div>';
                             echo '<div class="quantity">';
                             echo '<button class="minus" aria-label="Decrease" type="button" data-menu-id="' . $menu_id . '" onclick="decreaseValue(' . $menu_id . ', ' . $count . ')">&minus;</button>';
-                            echo '<input type="number" class="input-box" value="' . $count . '" min="0" max="10" name="quantity_' . $menu_id . '">';
+                            echo '<input type="number" class="input-box" value="' . $count . '" min="0" max="20" name="quantity_' . $menu_id . '">';
                             echo '<button class="plus" aria-label="Increase" type="button" data-menu-id="' . $menu_id . '" onclick="increaseValue(' . $menu_id . ', ' . $count . ')">&plus;</button>';
                             echo '</div>';
                             echo '<div class="price">฿' . $row["price"] . '</div>';
@@ -90,17 +90,15 @@ $menu_counts = array_count_values($menu_ids);
             <div class="white-bottom">
                 <div class="header-bottom">ยอดรวมทั้งหมด <span id="total-price"> ฿</span></div>
                 <button type="submit" class="order" name="order_submit">สั่งอาหาร</button>
+                <a href="../order/order.php?table_id=<?php echo isset($_GET['table']) ? $_GET['table'] : ''; ?>">ย้อนกลับ</a>
             </div>
         </form>
     </div>
     <script>
-
         function submitOrder() {
             document.getElementById("order-form").submit();
         }
     </script>
-
-
 </body>
 
 </html>

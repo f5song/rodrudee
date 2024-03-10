@@ -61,10 +61,6 @@ function updateSession() {
     xhr.send(data);
 }
 
-
-
-
-
 function goToAnotherPage() {
     var selectedTable = sessionStorage.getItem('selectedTable');
     if (selectedTable) {
@@ -73,12 +69,3 @@ function goToAnotherPage() {
         alert('กรุณาเลือกโต๊ะก่อนทำการสั่งอาหาร');
     }
 }
-
-
-
-window.addEventListener('beforeunload', function() {
-    // ทำการร้องขอแบบไม่สะดวกต่อเซิร์ฟเวอร์เพื่อยกเลิก session
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', 'unset_session.php', true);
-    xhr.send();
-});

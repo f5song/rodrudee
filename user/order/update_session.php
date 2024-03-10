@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
+// ตรวจสอบว่ามีข้อมูลที่ต้องการอัปเดต
+if (isset($_POST['selectedMenuIds'])) {
     // ดึงค่า selectedMenuIds จาก request
     $selectedMenuIds = json_decode($_POST['selectedMenuIds'], true);
 
@@ -44,15 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $_SESSION['orderCount'] = $orderCount;
     $_SESSION['totalPrice'] = $totalPrice;
-
-    // ปิด session หลังจากอัปเดต
-    session_write_close();
 }
 
-
-
+// ปิด session หลังจากอัปเดต
+session_write_close();
 ?>
-<script>
-var_dump($_POST)
-error_log(print_r($_POST, true))
-</script>

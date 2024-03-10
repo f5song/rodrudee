@@ -1,7 +1,8 @@
 <?php
 session_start();
-$table_id = isset($_GET['table_id']) ? $_GET['table_id'] : '';
-echo $table_id;
+
+
+$table_id = isset($_SESSION['table_id']) ? $_SESSION['table_id'] : '';
 
 $servername = "localhost";
 $username = "root";
@@ -13,7 +14,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT * FROM orders WHERE table_id = '$table_id'";
+$sql = "SELECT o.*, m.name as menu_name FROM orders o
+        JOIN menu m ON o.menu_id = m.menu_id
+        WHERE o.table_id = '$table_id'";
 $result = $conn->query($sql);
 
 ?>
@@ -43,7 +46,9 @@ $result = $conn->query($sql);
     <div class="yellow-bar"></div>
 
     <div class="promotion-head">
-        <div class="back-button"> <img src="image/Back To.png"> </img> </div>
+        <div class="back-button" onclick="goBack()">
+            <img src="image/Back To.png" alt="Back">
+        </div>
         <header>รายการอาหาร</header>
     </div>
     <div class="space"></div>
@@ -86,8 +91,8 @@ $result = $conn->query($sql);
                             <p><?php echo $row['quantity']; ?></p>
                         </div>
                         <div class="each-order">
-                            <div class="status" id="<?php echo ($row['status'] == 'completed') ? 'ready' : ''; ?>">
-                                <?php echo $row['status']; ?>
+                            <div class="status" id="<?php echo ($row['order_status']) ?>">
+                                <?php echo $row['order_status']; ?>
                             </div>
                         </div>
                     </div>
@@ -129,6 +134,13 @@ $result = $conn->query($sql);
 
         </div>
     </footer>
+    <?php
+    // Unset all session variables
+    session_unset();
+
+    // Destroy the session
+    session_destroy();
+    ?>
 </body>
 
 </html>

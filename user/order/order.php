@@ -3,12 +3,11 @@ session_start();
 
 if (isset($_GET['table'])) {
     $selectedTable = $_GET['table'];
-} else {
-    echo '<script>alert("กรุณาเลือกโต๊ะก่อนทำการสั่งอาหาร");</script>';
 }
+$totalPrice = $_SESSION['totalPrice'] ?? 0;
+$orderCount = $_SESSION['orderCount'] ?? 0;
+
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +21,6 @@ if (isset($_GET['table'])) {
 </head>
 
 <body>
-
     <header>
         <div>
             <div style="font-size: 100px;">รสฤดี</div>
@@ -33,8 +31,6 @@ if (isset($_GET['table'])) {
             <a href="#">ข่าวสารและโปรโมชั่น</a>
         </nav>
     </header>
-
-
 
     <div class="text">
     </div>
@@ -145,7 +141,7 @@ if (isset($_GET['table'])) {
 </html>
 
 <script>
-// ตรวจสอบค่า count-order และ totalprice 
+    // ตรวจสอบค่า count-order และ totalprice 
     window.addEventListener('DOMContentLoaded', function() {
         var cartPriceElement = document.querySelector('.cart-price');
         var orderCountElement = document.querySelector('.count-order');
@@ -163,6 +159,10 @@ if (isset($_GET['table'])) {
     var totalCartPrice = 0;
     var orderCount = 0;
     var selectedMenuIds = <?php echo json_encode($_SESSION['selectedMenuIds'] ?? []); ?>;
+
+    if (!Array.isArray(selectedMenuIds)) {
+        selectedMenuIds = [];
+    }
 
     function addToCart(button) {
         var foodContainer = button.closest('.food-menu-container');
