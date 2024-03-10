@@ -34,10 +34,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
                 $existing_order_row = $existing_order_result->fetch_assoc();
                 $order_status = $existing_order_row['order_status'];
 
-                if ($order_status === 'ออเดอร์ถูกส่งแล้ว') {
+                if ($order_status === 'ส่งออเดอร์') {
                     $update_quantity_sql = "UPDATE orders SET quantity = quantity + '$quantity', 
                                             price = quantity * '$price' 
-                                            WHERE table_id = '$table_id' AND menu_id = '$menu_id' AND order_status = 'ออเดอร์ถูกส่งแล้ว'";
+                                            WHERE table_id = '$table_id' AND menu_id = '$menu_id' AND order_status = 'ส่งออเดอร์'";
 
                     if ($conn->query($update_quantity_sql) !== TRUE) {
                         echo "Error updating quantity: " . $conn->error;
@@ -45,10 +45,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
                         echo "Order quantity updated successfully<br>";
                     }
                 } else {
-                    echo "Order status is not 'ออเดอร์ถูกส่งแล้ว', cannot update quantity.<br>";
+                    echo "Order status is not 'ส่งออเดอร์', cannot update quantity.<br>";
                 }
             } else {
-                $order_status = 'ออเดอร์ถูกส่งแล้ว';
+                $order_status = 'ส่งออเดอร์';
                 $total_price = $quantity * $price;
 
                 $insert_sql = "INSERT INTO orders (table_id, menu_id, quantity, order_status, order_time, price) 

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Search Table</title>
+
+    <script>
+        function redirectToMethodPage() {
+            window.location.href = 'method.html';
+        }
+    </script>
+</head>
+
+<body>
+    <header>
+        <img src="../../asset/profile.png" alt="profile">
+        <span>พนักงาน</span>
+    </header>
+    <top>
+        <div>
+            <div class="queue">
+                <div class="queue_frame">
+                    <img src="../../asset/queuewithbg.png">
+                    <div class="num_queue">3 คิว</div>
+                </div>
+            </div>
+            <div class="yellow-bar"></div>
+        </div>
+        <div class="option_container">
+            <div class="option-frame">
+                <div class="option">
+                    <img src="../../asset/cooking.png">
+                    <div class="option-name" id="status">เช็คสถานะอาหาร</div>
+                </div>
+            </div>
+            <div class="option-frame">
+                <div class="option">
+                    <img src="../../asset/bill.png">
+                    <div class="option-name" id="payment">หน้าชำระเงิน</div>
+                </div>
+            </div>
+        </div>
+    </top>
+    <content>
+        <div class="search-table">
+            <div class="option-name" id="table">โต๊ะ</div>
+            <div class="text-field"> <input type="number" id="table" name="table"> </div>
+        </div>
+        <div class="button-container">
+            <button class="button" onclick="redirectToMethodPage()">สรุปยอดชำระ</button>
+        </div>
+    </content>
+</body>
+
+</html>
