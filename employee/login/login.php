@@ -9,9 +9,12 @@
 </head>
 
 <body>
-    <div class="top"></div>
-    <div class="text">เข้าสู่ระบบสำหรับพนักงาน</div>
-    <div class="rodruedee">รสฤดี</div>
+    <header>
+        <div class="top"></div>
+        <div class="text">ลงทะเบียนสำหรับพนักงาน</div>
+        <div class="rodruedee">รสฤดี</div>
+    </header>
+
     <div class="login-container">
         <div class="login-text">เข้าสู่ระบบ</div>
         <div>
@@ -33,7 +36,7 @@
         </div>
     </div>
     <script>
-        document.querySelector('.login-button').addEventListener('click', function(event) {
+        document.querySelector('.login-button').addEventListener('click', function (event) {
             var usernameInput = document.getElementById('username').value.trim();
             var passwordInput = document.getElementById('password').value.trim();
 

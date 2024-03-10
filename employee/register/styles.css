@@ -63,13 +63,6 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }
 
-.login-text {
-    color: #232D3F;
-    font-size: 40px;
-    font-family: 'Moh Luang';
-    margin-bottom: 41px;
-}
-
 .text-field input {
     width: 505px;
     height: 64px;
