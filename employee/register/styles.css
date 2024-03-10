@@ -18,14 +18,6 @@ body {
     src: url('../../font/PGVIM.ttf') format('opentype');
 }
 
-
-.nav {
-    display: flexbox;
-    width: auto;
-    height: 100px;
-    background-color: #232D3F;
-}
-
 .top {
     text-align: center;
     background-color: #2A435D;
@@ -59,7 +51,7 @@ body {
 .login-container {
     background-color: #FFF8EE;
     width: 1028px;
-    height: 430px;
+    height: 600px;
     border-radius: 30px;
     display: flex;
     margin: auto;

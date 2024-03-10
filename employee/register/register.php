@@ -9,23 +9,13 @@
 </head>
 
 <body>
-
-    <div>
+    <header>
         <div class="top"></div>
-    </div>
-
-    <div>
         <div class="text">ลงทะเบียนสำหรับพนักงาน</div>
-    </div>
-
-    <div>
         <div class="rodruedee">รสฤดี</div>
-    </div>
+    </header>
 
     <div class="login-container">
-        <div class="login-text">
-            ลงทะเบียนบัญชีพนักงาน
-        </div>
 
         <div>
             <form action="register_process.php" method="post">
@@ -52,7 +42,8 @@
 
                 <div>
                     <div class="username-text"> <label for="password-confirm">ยืนยันรหัสผ่าน:</label> </div>
-                    <div class="text-field"> <input type="password" id="password-confirm" name="password-confirm" required> </div>
+                    <div class="text-field"> <input type="password" id="password-confirm" name="password-confirm"
+                            required> </div>
                 </div>
 
                 <div>
@@ -61,11 +52,6 @@
 
             </form>
         </div>
-
-        <div class="menu-order">
-
-        </div>
-
     </div>
 
 </body>
