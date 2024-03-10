@@ -23,9 +23,6 @@
     </div>
 
     <div class="login-container">
-        <div class="login-text">
-            ลงทะเบียนบัญชีพนักงาน
-        </div>
 
         <div>
             <form action="register_process.php" method="post">
