@@ -1,8 +1,8 @@
+
 @font-face {
     font-family: 'Moh Luang';
     src: url('font/Moh-Luang.otf') format('opentype');
 }
-
 
 body {
     font-family: 'Moh Luang', sans-serif;
@@ -12,17 +12,15 @@ body {
     background-color: #FFF8EE;
 }
 
-
 /* navbar */
 
 header {
     background-color: #232D3F;
     color: #fff;
-    padding: 0px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: 4vw;
+    font-size: 25px;
     max-height: 100px;
 }
 
@@ -43,11 +41,21 @@ nav a {
     margin: 0 15px;
     padding: 5px 10px;
     border-radius: 5px;
-    font-size: 2vw;
 }
 
 nav a:hover {
     background-color: #555;
+}
+
+.banner {
+    color: white;
+    background-image: url('asset/head_img.png');
+    background-size: cover;
+    background-position: center;
+    padding: 87px;
+    background-color: #FFCC19;
+    display: flex;
+    justify-content: right;
 }
 
 /* /////// */
@@ -61,29 +69,25 @@ nav a:hover {
     flex-direction: column;
 }
 
-.top-img {
-    overflow: hidden;
-    background-color: #FFCC19;
-
-}
-
-.top-img img {
-    width: 100%;
-    height: auto;
-}
 
 .top-header {
+    display: flex;
+    flex-direction: row;
     background-color: #232D3F;
     margin-top: 0;
 }
 
 .top-header p {
     font-size: 6vh;
-    margin-left: 10vh;
+    margin-left: 4vh;
     color: #fff;
     margin-bottom: 2vh;
     margin-top: 2vh;
 }
+
+/* ///////// */
+
+
 
 .cart-items {
     display: flex;
@@ -91,12 +95,12 @@ nav a:hover {
     align-items: center;
     margin-top: 2vh;
     font-size: 2vw;
-    justify-content: space-between; /* เปลี่ยนเป็น center */
+    justify-content: space-between; 
     border-bottom: 1px solid #ccc;
 }
 
 .cart-items img.food-img {
-    margin-left: 20px; /* ปรับขนาดช่องว่างระหว่างรูปภาพและข้อความ */
+    margin-left: 20px; 
 }
 
 
@@ -118,8 +122,6 @@ nav a:hover {
     cursor: pointer;
 }
 
-
-
 .food-img {
     margin-bottom: 10px;
     margin-top: 0;
@@ -133,14 +135,6 @@ nav a:hover {
     
 }
 
-ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    margin-bottom: 10px;
-}
 
 .white-container {
     display: flex;
@@ -154,7 +148,6 @@ li {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* ///qty-input */
 .quantity {
     display: flex;
     justify-content: center;
@@ -176,9 +169,7 @@ li {
     transition: background-color 0.2s;
 }
 
-.quantity button:hover {
-    background-color: #FFCC19;
-}
+
 
 .input-box {
     font-family: 'Moh Luang';
@@ -189,11 +180,6 @@ li {
     outline: none;
 }
 
-.input-box::-webkit-inner-spin-button,
-.input-box::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
-}
 /* // bottom total */
 
 .white-bottom{
@@ -212,7 +198,6 @@ li {
 .header-bottom{
     color: #000000;
     margin-top: 2vh;
-
 }
 .order {
     margin-top: 2vh;
@@ -228,9 +213,6 @@ li {
     margin-bottom: 2vh;
 }
 
-.order:hover {
-    background-color: #a8a8a8; /* เปลี่ยนสีพื้นหลังเมื่อ hover */
-}
 .input-box-value{
     display: flex;
     justify-content: center;
@@ -250,7 +232,26 @@ li {
     cursor: pointer;
 }
 
+.order:hover {
+    background-color: #a8a8a8; 
+}
+
 .back-button a:hover {
     background-color: #45a049;
 }
 
+#back-img:hover{
+    cursor: pointer;
+}
+
+#back-img{
+    margin-left: 10px;
+}
+
+#logo:hover{
+    cursor: pointer;
+}
+
+.quantity button:hover {
+    background-color: #FFCC19;
+}

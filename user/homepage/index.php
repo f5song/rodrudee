@@ -56,13 +56,12 @@ $db->close();
 <body>
     <div class="container">
         <header id="navbar" class="navbar">
-            <div class="logo">
+            <div class="logo" id="logo">
                 <div style="font-size: 5vw;">รสฤดี</div>
             </div>
             <nav>
                 <a href="index.php">หน้าหลัก</a>
                 <a href="#" onclick="orderNow()">รายการอาหาร</a>
-                <a href="order/index.php">ข่าวสารและโปรโมชั่น</a>
             </nav>
         </header>
 

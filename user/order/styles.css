@@ -55,7 +55,7 @@ nav a:hover {
     background-color: #555;
 }
 
-.text {
+.banner {
     color: white;
     background-image: url('asset/banner.png');
     background-size: cover;
@@ -245,27 +245,7 @@ nav a:hover {
     width: 4vw;
     height: 4vw;
 }
-@media screen and (max-width: 768px) {
-    .region-frame {
-        width: 20vw; /* Adjusted width for smaller screens */
-        height: 40vh; /* Adjusted height for smaller screens */
-    }
 
-    .region-name {
-        font-size: 1vw; /* Adjusted font size for smaller screens */
-    }
-}
-
-@media screen and (max-width: 480px) {
-    .region-frame {
-        width: 80vw; /* Adjusted width for even smaller screens */
-        height: 80px; /* Adjusted height for even smaller screens */
-    }
-
-    .region-name {
-        font-size: 1.5vw; /* Adjusted font size for even smaller screens */
-    }
-}
 
 #cart{
     z-index: 99;
@@ -289,4 +269,8 @@ nav a:hover {
 .whole-web{
     display: flex;
     flex-direction: column;
+}
+
+#logo:hover{
+    cursor: pointer;
 }

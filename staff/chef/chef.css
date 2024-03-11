@@ -1,0 +1,401 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Moh Luang';
+}
+
+body {
+    font-family: 'Moh Luang';
+    background-color: #FFF8EE;
+}
+
+@font-face {
+    font-family: 'Moh Luang';
+    src: url('../menu/Moh-Luang.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'PGVIM';
+    src: url('../menu/PGVIM.ttf') format('opentype');
+}
+
+/* General styles */
+header {
+    background-color: #232D3F;
+    color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 25px;
+    max-height: 100px;
+}
+
+header img {
+    max-width: 95px;
+    max-height: 30px;
+    margin-right: 8px;
+}
+
+.queue {
+    background-image: url('banner.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: right;
+    height: 80px;
+}
+
+.queue_frame {
+    display: flex;
+    width: 145px;
+    height: 50px;
+    border-radius: 38px;
+    background-color: #FFF8EE;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+}
+
+.num_queue {
+    color: rgb(0, 0, 0);
+    font-size: 35px;
+    text-align: right;
+    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.option_container {
+    display: flex;
+    height: 80px;
+    background-color: #232D3F;
+}
+
+.option-frame {
+    width: 420px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.option {
+    width: 260px;
+    height: 55px;
+    background-color: #FFF8EE;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#payment.option-name,
+#status.option-name {
+    color: rgb(0, 0, 0);
+    font-size: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option-frame img {
+    width: 50px;
+    height: 50px;
+}
+
+.option-frame span {
+    font-size: 60px;
+    color: white;
+    padding-left: 5%;
+}
+
+.option-frame:hover {
+    background-color: #59779a;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.content {
+    display: flex;
+    margin-top: 2%;
+}
+
+.head-button {
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+
+.button-add {
+    width: 180px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: 2px 2px #888888;
+    background-color: #abd2f8;
+}
+
+.button-add:hover {
+    background-color: #C7D8E9;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.box {
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+    align-items: center;
+    justify-items: center;
+}
+
+.space {
+    width: 5%;
+    height: 100%;
+}
+
+.center-content {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.box-test1 {
+    margin-top: 2%;
+    background-color: #FFF9C8;
+    width: 100%;
+    max-width: 1000px;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    border-style: none;
+    border-radius: 15px;
+    box-shadow: 2px 2px #c2c2c2;
+}
+
+.p-name {
+    font-size: 30px;
+    font-family: 'PGVIM';
+}
+
+.button-modify {
+    background-color: #FFCC19;
+    width: 80px;
+    border-style: none;
+    border-radius: 7px;
+    font-size: 25px;
+}
+
+.button-delete {
+    background-color: #C94242;
+    width: 80px;
+    border-style: none;
+    border-radius: 7px;
+    font-size: 25px;
+}
+
+.button-modify:hover {
+    background-color: #ebbe1d;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button-delete:hover {
+    background-color: #b43d3d;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.selected {
+    background-color: #59779a;
+}
+
+.headliner {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 30%;
+    justify-content: center;
+}
+
+.text-button {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.text-button span {
+    font-size: 40px;
+}
+
+.text-button button {
+    font-size: 30px;
+    border-radius: 15px;
+    background-color: #FFCC19;
+    width: 110px;
+    border-style: none;
+}
+
+.contentinbox {
+    margin-top: 2%;
+    width: 100%;
+    height: auto;
+    display: grid;
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.row {
+    display: flex;
+    justify-content: space-between;
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.radio-button {
+    display: flex;
+    cursor: pointer;
+}
+
+.right {
+    display: flex;
+    gap: 20px;
+}
+
+.left,
+.right span {
+    font-size: 30px;
+}
+
+.left {
+    display: flex;
+    gap: 10px;
+}
+
+.boxnum {
+    width: 40px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 15px;
+    box-shadow: 2px 2px #c2c2c2;
+}
+
+.status {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #777777;
+    font-size: 30px;
+    color: white;
+    width: 100px;
+    height: 30px;
+    border-radius: 15px;
+}
+
+.radiocheck {
+    width: 25px;
+    cursor: pointer;
+}
+
+.yes {
+    background: #3B9744;
+}
+
+
+.button-update {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 70px;
+}
+
+.button-update button {
+    width: 110px;
+    height: 30px;
+    font-size: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #C94242;
+    border-radius: 10px;
+    border-style: none;
+    color: white;
+}
+
+.button-update button:hover {
+    background-color: #a83737;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+    .option_frame {
+        width: 300px;
+    }
+    .option {
+        width: 200px;
+        height: 40px;
+    }
+    .option_frame img {
+        width: 40px;
+        height: 40px;
+    }
+    .option_frame span {
+        font-size: 40px;
+    }
+    .button-add {
+        width: 150px;
+        height: 40px;
+        font-size: 25px;
+    }
+    .box-test1 {
+        width: 95%;
+    }
+    .p-name {
+        font-size: 25px;
+    }
+    .button-modify,
+    .button-delete {
+        width: 60px;
+        font-size: 20px;
+    }
+    .text-button span {
+        font-size: 30px;
+    }
+    .text-button button {
+        font-size: 25px;
+        width: 90px;
+    }
+    .row {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    .left,
+    .right span {
+        font-size: 20px;
+    }
+    .boxnum {
+        width: 30px;
+        border-radius: 10px;
+    }
+    .status {
+        width: 80px;
+        height: 20px;
+        font-size: 15px;
+    }
+    .radiocheck {
+        width: 20px;
+    }
+}
