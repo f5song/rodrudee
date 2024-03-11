@@ -40,27 +40,26 @@ $result = $db->query($sql);
 </head>
 
 <body>
+
     <header>
-        <div>
-            <header style="font-size: 100px;">รสฤดี</header>
+        <div class="logo" id="logo">
+            <div style="font-size: 5vw;" id="logo-icon">รสฤดี</div>
         </div>
         <nav>
-            <a href="#">หน้าหลัก</a>
-            <a href="#">รายการอาหาร</a>
-            <a href="#">ข่าวสารและโปรโมชั่น</a>
+            <a href="../homepage">หน้าหลัก</a>
+            <a href="../order/order.php?table_id=<?php echo $selectedTable; ?>">รายการอาหาร</a>
         </nav>
     </header>
-    <div>
-        <div class="text"></div>
-    </div>
-    <div class="yellow-bar"></div>
+
+    <div class="banner"></div>
 
     <div class="promotion-head">
         <div class="back-button" onclick="goBack()">
-            <img src="image/Back To.png" alt="Back">
+            <img id="back-img"src="image/Back To.png" alt="Back">
         </div>
         <header>รายการอาหาร</header>
     </div>
+
     <div class="space"></div>
 
     <div class="table-information" style="overflow-x:auto;">
@@ -166,4 +165,8 @@ $result = $db->query($sql);
         }, 5000);
 
     };
+
+    document.getElementById('logo').addEventListener('click', function() {
+        window.location.href = '../homepage';
+    });
 </script>
