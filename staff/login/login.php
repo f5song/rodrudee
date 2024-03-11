@@ -32,8 +32,6 @@
                 </div>
             </form>
         </div>
-        <div class="menu-order">
-        </div>
     </div>
     <script>
         document.querySelector('.login-button').addEventListener('click', function (event) {
