@@ -11,7 +11,7 @@
 <body>
     <header>
         <div class="top"></div>
-        <div class="text">ลงทะเบียนสำหรับพนักงาน</div>
+        <div class="text">เข้าสู่ระบบสำหรับพนักงาน</div>
         <div class="rodruedee">รสฤดี</div>
     </header>
 
@@ -45,9 +45,9 @@
                     <div class="text-field"> <input type="password" id="password-confirm" name="password-confirm" required> </div>
                 </div>
 
-                <div class="text-field">
+                <div class="username-text">
                     <label for="password-confirm">ตำแหน่ง:</label>
-                    <select id="role" name="role" required>
+                    <select class="select-role" id="role" name="role" required>
                         <option value="chef">เชฟ</option>
                         <option value="employee">พนักงาน</option>
                     </select>

@@ -115,3 +115,10 @@ body {
     background-color: #001F33;
 }
 
+.select-role{
+    width: 20%;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 10px;
+}
+
