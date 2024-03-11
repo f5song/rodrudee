@@ -17,12 +17,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $db->lastErrorMsg();
     }
 
+    $sql = "SELECT * FROM staff WHERE username = :username";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':username', $username, SQLITE3_TEXT);
+    
+    $result = $stmt->execute();
 
-    $sql = "SELECT * FROM staff WHERE username = '$username'";
-    $result = $conn->query($sql);
-
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
+    if ($row = $result->fetchArray(SQLITE3_ASSOC)) {
         $hashedPassword = $row["password"];
         $role = $row["role"];
 
@@ -33,7 +34,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 header("Location: chef_dashboard.php");
                 exit;
             } elseif ($role === "employee") {
-                header("Location: employee_dashboard.php");
+                header("Location: ../employee/state/state.php");
                 exit;
             } else {
                 echo "ไม่พบบทบาทที่ถูกกำหนด";
@@ -45,5 +46,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "ไม่พบข้อมูลผู้ใช้";
     }
 
-    $conn->close();
+    $db->close();
 }
+?>

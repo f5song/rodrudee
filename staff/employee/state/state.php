@@ -16,7 +16,7 @@ if (!$db) {
 $sql = "SELECT o.*, m.name as menu_name FROM orders o
         JOIN menu m ON o.menu_id = m.menu_id
         ORDER BY o.table_id, o.order_id;";
-$result = $conn->query($sql);
+$result = $db->query($sql);
 
 ?>
 
@@ -62,18 +62,14 @@ $result = $conn->query($sql);
                 <div class="option">
                     <img src="../../asset/cooking.png" alt="cooking">
                     <div class="option-name" id="status">เช็คสถานะอาหาร</div>
+                </div>
             </a>
-        </div>
-
-        <div class="option-frame">
             <a href="../checkout/search_table/search_table.php">
                 <div class="option">
                     <img src="../../asset/bill.png" alt="bill">
                     <div class="option-name" id="payment">หน้าชำระเงิน</div>
                 </div>
             </a>
-        </div>
-
         </div>
     </top>
     <div class="content">
@@ -91,7 +87,7 @@ $result = $conn->query($sql);
                     $orderCount = 0;
 
 
-                    while ($row = $result->fetch_assoc()) {
+                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                         $tableId = $row['table_id'];
                         $orderId = $row['order_id'];
                         $menuName = $row['menu_name'];
@@ -137,7 +133,7 @@ $result = $conn->query($sql);
                 } else {
                     echo "No orders found.";
                 }
-                $conn->close();
+                $db->close();
                 ?>
 
             </div>

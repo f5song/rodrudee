@@ -5,7 +5,7 @@ class MyDB extends SQLite3
 {
     function __construct()
     {
-        $this->open('../../../rodrudee.db');
+        $this->open('../../../../rodrudee.db');
     }
 }
 
@@ -14,12 +14,14 @@ if (!$db) {
     echo $db->lastErrorMsg();
 }
 
-
 $tablesQuery = "SELECT * FROM tables";
-$tablesResult = $conn->query($tablesQuery);
+$tablesResult = $db->query($tablesQuery);
 
 if ($tablesResult) {
-    $tables = $tablesResult->fetch_all(MYSQLI_ASSOC);
+    $tables = array();
+    while ($row = $tablesResult->fetchArray(SQLITE3_ASSOC)) {
+        $tables[] = $row;
+    }
 } else {
     $tables = array();
 }
@@ -29,35 +31,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['table_id'] = $_POST['table'];
         $selectedTableId = $_SESSION['table_id'];
 
-
         $selectOrdersQuery = "SELECT * FROM orders WHERE table_id = '$selectedTableId' AND pay_status = 'ยังไม่จ่าย'";
-        $ordersResult = $conn->query($selectOrdersQuery);
+        $ordersResult = $db->query($selectOrdersQuery);
 
-        if ($ordersResult && $ordersResult->num_rows > 0) {
-            $firstOrderData = $ordersResult->fetch_assoc();
-            $firstOrderId = $firstOrderData['order_id'];
-            $transactionId = generateUniqueTransactionId();
+        if ($ordersResult) {
+            $firstOrderData = $ordersResult->fetchArray(SQLITE3_ASSOC);
+            if ($firstOrderData) {
+                $firstOrderId = $firstOrderData['order_id'];
+                $transactionId = generateUniqueTransactionId();
 
-            do {
-                $insertTransactionQuery = "INSERT INTO transactions (transaction_id, order_id, transaction_time) 
-                                            VALUES ('$transactionId', '{$firstOrderData['order_id']}', NOW())";
+                do {
+                    $insertTransactionQuery = "INSERT INTO transactions (transaction_id, order_id, transaction_time) 
+                                            VALUES ('$transactionId', '{$firstOrderData['order_id']}', CURRENT_TIMESTAMP)";
 
-                if ($conn->query($insertTransactionQuery) !== TRUE) {
-                    echo "Error: " . $insertTransactionQuery . "<br>" . $conn->error;
-                }
-            } while ($firstOrderData = $ordersResult->fetch_assoc());
+                    $result = $db->exec($insertTransactionQuery);
 
-            header("Location: ../method/method.php");
-            exit();
+                    if ($result !== TRUE) {
+                        echo "Error inserting transaction: " . $db->lastErrorMsg();
+                    }
+                } while ($firstOrderData = $ordersResult->fetchArray(SQLITE3_ASSOC));
+
+                header("Location: ../method/method.php");
+                exit();
+            } else {
+                echo '<script>alert("No open orders for the selected table.");</script>';
+            }
         } else {
-            echo '<script>alert("No open orders for the selected table.");</script>';
+            echo '<script>alert("Please select a table.");</script>';
         }
-    } else {
-        echo '<script>alert("Please select a table.");</script>';
     }
 }
 
-$conn->close();
+$db->close();
 
 function generateUniqueTransactionId()
 {
@@ -83,10 +88,6 @@ function generateUniqueTransactionId()
     <top>
         <div>
             <div class="queue">
-                <!-- <div class="queue_frame">
-                    <img src="../../../asset/queuewithbg.png">
-                    <div class="num_queue">3 คิว</div>
-                </div> -->
             </div>
             <div class="yellow-bar"></div>
         </div>
