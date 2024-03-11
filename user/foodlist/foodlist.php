@@ -21,11 +21,14 @@ if (!$db) {
     echo $db->lastErrorMsg();
 }
 
-$sql = "SELECT o.*, m.name as menu_name FROM orders o
-        JOIN menu m ON o.menu_id = m.menu_id
+$sql = "SELECT oi.*, o.order_status, m.name as menu_name 
+        FROM order_item oi
+        JOIN orders o ON oi.order_id = o.order_id
+        JOIN menu m ON oi.menu_id = m.menu_id
         WHERE o.table_id = '$selectedTable'";
-$result = $db->query($sql);
 
+
+$result = $db->query($sql);
 ?>
 
 <!DOCTYPE html>
@@ -83,7 +86,11 @@ $result = $db->query($sql);
             <div class="line-under-topic"></div>
 
             <?php
+
             $counter = 1;
+
+            if ($result) {
+
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             ?>
                 <div class="topic" id="table-order">
@@ -109,6 +116,7 @@ $result = $db->query($sql);
             if ($counter === 1) {
                 echo '<p>No orders for this table.</p>';
             }
+        }
             ?>
         </div>
     </div>

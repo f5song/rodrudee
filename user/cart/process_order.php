@@ -25,41 +25,42 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
         echo $db->lastErrorMsg();
     }
 
-    if (is_array($_SESSION['selectedMenuIds'])) {
-        $menu_data = [];
+    if (is_array($_SESSION['selectedMenuIds']) && !empty($_SESSION['selectedMenuIds'])) {
+        $order_status = 'รับออเดอร์'; 
+        $pay_status = ''; 
+
+        $order_time = date('Y-m-d H:i:s');
+        $insert_order_sql = "INSERT INTO orders (table_id, order_status, order_time) 
+                            VALUES ('$selectedTable', '$order_status', '$order_time')";
+
+        if ($db->exec($insert_order_sql) !== TRUE) {
+            echo "Error inserting order: " . $db->lastErrorMsg();
+            $db->close();
+            exit;
+        }
+
+        $order_id = $db->lastInsertRowID();
+
         foreach ($_SESSION['selectedMenuIds'] as $menu_id) {
             $quantity = $_POST['quantity_' . $menu_id];
 
-            if ($quantity > 0) { 
-                if (!isset($menu_data[$menu_id])) {
-                    $menu_data[$menu_id] = [
-                        'quantity' => 0,
-                        'price' => 0
-                    ];
+            if ($quantity > 0) {
+                $price_result = $db->query("SELECT price FROM menu WHERE menu_id = $menu_id");
+                $price_row = $price_result->fetchArray(SQLITE3_ASSOC);
+                $price = $price_row['price'];
+
+                $total_price = $quantity * $price;
+
+                $insert_order_item_sql = "INSERT INTO order_item (order_id, menu_id, quantity) 
+                                          VALUES ('$order_id', '$menu_id', '$quantity')";
+
+                if ($db->exec($insert_order_item_sql) !== TRUE) {
+                    echo "Error inserting order item: " . $db->lastErrorMsg();
                 }
-
-                $menu_data[$menu_id]['quantity'] += $quantity;
             }
         }
-        foreach ($menu_data as $menu_id => $data) {
-            $quantity = $data['quantity'];
-            $price_result = $db->query("SELECT price FROM menu WHERE menu_id = $menu_id");
-            $price_row = $price_result->fetchArray(SQLITE3_ASSOC);
-            $price = $price_row['price'];
 
-            $order_status = 'รับออเดอร์';
-            $pay_status = 'ยังไม่จ่าย';
-            $total_price = $quantity * $price;
-
-            $insert_sql = "INSERT INTO orders (table_id, menu_id, quantity, order_status, order_time, price, pay_status) 
-                            VALUES ('$selectedTable', '$menu_id', '$quantity', '$order_status', datetime('now', 'localtime'), '$total_price', '$pay_status')";
-
-            if ($db->exec($insert_sql) !== TRUE) {
-                echo "Error inserting order: " . $db->lastErrorMsg();
-            } else {
-                echo "Order added successfully<br>";
-            }
-        }
+        echo "Order added successfully<br>";
     }
 
     $db->close();
