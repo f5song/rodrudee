@@ -8,8 +8,6 @@ $selectedTable = $_SESSION['selectedTable'] ?? '';
 $totalPrice = $_SESSION['totalPrice'] ?? 0;
 $orderCount = $_SESSION['orderCount'] ?? 0;
 
-echo $selectedTable;
-
 class MyDB extends SQLite3
 {
     function __construct()

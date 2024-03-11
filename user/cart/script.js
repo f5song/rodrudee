@@ -37,8 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateButtonStates();
         handleQuantityChange(menuId);
         updateLocalStorage(menuId, value);
-      } else {
-        console.error("inputBox is null for menuId:", menuId);
       }
     }
 
@@ -53,8 +51,6 @@ document.addEventListener("DOMContentLoaded", function () {
         updateButtonStates();
         handleQuantityChange(menuId);
         updateLocalStorage(menuId, value);
-      } else {
-        console.error("inputBox is null for menuId:", menuId);
       }
     }
 
@@ -106,10 +102,7 @@ function removeCartItem(menuId) {
   var cartItem = document.getElementById("cart-item-" + menuId);
   if (cartItem) {
     cartItem.remove();
-    console.log("Item found and removed:", cartItem);
     updateTotalPrice();
-  } else {
-    console.log("Item not found with menuId:", menuId);
   }
 }
 
@@ -129,8 +122,6 @@ function updateTotalPrice() {
     var newTotalPrice = currentTotalPrice - totalPrice;
     totalPriceElement.textContent = "฿" + newTotalPrice.toFixed(2);
     document.getElementById("total-price-input").value = newTotalPrice;
-  } else {
-    console.error("totalPriceElement is null");
   }
 }
 

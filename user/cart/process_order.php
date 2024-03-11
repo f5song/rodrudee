@@ -10,8 +10,6 @@ $selectedTable = $_SESSION['selectedTable'] ?? '';
 $totalPrice = $_SESSION['totalPrice'] ?? 0;
 $orderCount = $_SESSION['orderCount'] ?? 0;
 
-echo "Table ID: $selectedTable<br>";
-
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
 
     class MyDB extends SQLite3
