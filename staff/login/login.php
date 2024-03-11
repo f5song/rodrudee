@@ -50,5 +50,4 @@
     </script>
 </body>
 
->>>>>>> f29a6b3f42fea168519f1802e5913d52b3ef33a4:employee/login/login.php
 </html>

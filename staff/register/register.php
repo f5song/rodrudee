@@ -46,7 +46,7 @@
                             required> </div>
                 </div>
 
-                <div>
+                <div class="center"">
                     <button type="submit" class="login-button">สมัครบัญชีพนักงาน</button>
                 </div>
 
