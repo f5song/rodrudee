@@ -1,17 +1,15 @@
 <?php
-// ตรวจสอบว่ามีการส่งข้อมูลมาจากฟอร์มหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    // รับค่าชื่อจริง, นามสกุล, ชื่อผู้ใช้ และรหัสผ่านจากฟอร์ม
     $firstName = $_POST["first-name"];
     $lastName = $_POST["last-name"];
     $username = $_POST["username"];
     $password = $_POST["password"];
     $passwordConfirm = $_POST["password-confirm"];
+    $role = $_POST["role"];
 
-    // ตรวจสอบว่ารหัสผ่านและยืนยันรหัสผ่านตรงกันหรือไม่
     if ($password != $passwordConfirm) {
-        echo "รหัสผ่านไม่ตรงกัน";
+        echo "Passwords do not match";
         exit();
     }
 
@@ -28,18 +26,17 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo $db->lastErrorMsg();
     }
 
-
-    // แฮชรหัสผ่าน
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
 
-    // เตรียมคำสั่ง SQL เพื่อบันทึกข้อมูล
-    $sql = "INSERT INTO staff (first_name, last_name, username, password) VALUES ('$firstName', '$lastName', '$username', '$hashedPassword')";
+    $sql = "INSERT INTO staff (first_name, last_name, username, password, role) VALUES ('$firstName', '$lastName', '$username', '$hashedPassword', '$role')";
 
-    if ($conn->query($sql) === TRUE) {
-        echo "บันทึกข้อมูลเรียบร้อย";
+    if ($db->exec($sql) === TRUE) {
+        header("Location: ../login/login.php");
+        exit();
     } else {
-        echo "Error: " . $sql . "<br>" . $conn->error;
+        echo "Error: " . $sql . "<br>" . $db->lastErrorMsg();
     }
 
-    $conn->close();
+    $db->close();
 }
+?>

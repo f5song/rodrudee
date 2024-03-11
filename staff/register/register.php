@@ -42,11 +42,18 @@
 
                 <div>
                     <div class="username-text"> <label for="password-confirm">ยืนยันรหัสผ่าน:</label> </div>
-                    <div class="text-field"> <input type="password" id="password-confirm" name="password-confirm"
-                            required> </div>
+                    <div class="text-field"> <input type="password" id="password-confirm" name="password-confirm" required> </div>
                 </div>
 
-                <div class="center"">
+                <div class="text-field">
+                    <label for="password-confirm">ตำแหน่ง:</label>
+                    <select id="role" name="role" required>
+                        <option value="chef">เชฟ</option>
+                        <option value="employee">พนักงาน</option>
+                    </select>
+                </div>
+
+                <div class="center">
                     <button type="submit" class="login-button">สมัครบัญชีพนักงาน</button>
                 </div>
 

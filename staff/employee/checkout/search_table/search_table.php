@@ -50,7 +50,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                     if ($result !== TRUE) {
                         echo "Error inserting transaction. Please try again later.";
-                        // Log the detailed error for debugging purposes
                         error_log("Error inserting transaction: " . $db->lastErrorMsg());
                     }
                 } while ($firstOrderData = $ordersResult->fetchArray(SQLITE3_ASSOC));
