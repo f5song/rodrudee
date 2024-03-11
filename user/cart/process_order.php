@@ -28,22 +28,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
     }
 
     if (is_array($_SESSION['selectedMenuIds'])) {
-        // รวมข้อมูลในตารางเข้าด้วยกัน
         $menu_data = [];
         foreach ($_SESSION['selectedMenuIds'] as $menu_id) {
             $quantity = $_POST['quantity_' . $menu_id];
 
-            if (!isset($menu_data[$menu_id])) {
-                $menu_data[$menu_id] = [
-                    'quantity' => 0,
-                    'price' => 0
-                ];
+            if ($quantity > 0) { 
+                if (!isset($menu_data[$menu_id])) {
+                    $menu_data[$menu_id] = [
+                        'quantity' => 0,
+                        'price' => 0
+                    ];
+                }
+
+                $menu_data[$menu_id]['quantity'] += $quantity;
             }
-
-            $menu_data[$menu_id]['quantity'] += $quantity;
         }
-
-        // นำข้อมูลที่รวมไว้ในตาราง orders
         foreach ($menu_data as $menu_id => $data) {
             $quantity = $data['quantity'];
             $price_result = $db->query("SELECT price FROM menu WHERE menu_id = $menu_id");
