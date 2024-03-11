@@ -37,24 +37,21 @@ if (!$db) {
 <body>
     <div class="content">
         <header>
-            <div class="logo">
-                <p>รสฤดี</p>
-            </div>
+        <div class="logo" id="logo">
+                    <div style="font-size: 5vw;" id="logo-icon">รสฤดี</div>
+                </div>
             <nav>
-                <a href="index.html">หน้าหลัก</a>
-                <a href="#">รายการอาหาร</a>
-                <a href="#">ข่าวสารและโปรโมชั่น</a>
+                <a href="../homepage">หน้าหลัก</a>
+                <a href="../order/order.php?table_id=<?php echo $selectedTable; ?>">รายการอาหาร</a>
             </nav>
         </header>
 
-        <div class="container">
-            <div class="top-img">
-                <img src="asset/head_img.png" alt="Header Image">
-            </div>
-            <div class="top-header">
+        <div class="banner"></div>
+
+        <div class="top-header">
                 <div class="promotion-head">
-                    <div class="back-button" onclick="goBack()">
-                        <img src="image/Back To.png" alt="Back">
+                    <div class="back-button">
+                        <img id="back-img" src="asset/Back To.png" alt="Back">
                     </div>
                 </div>
                 <p>ตระกร้า</p>
@@ -103,7 +100,6 @@ if (!$db) {
             <div class="white-bottom">
                 <div class="header-bottom">ยอดรวมทั้งหมด <span id="total-price"> ฿</span></div>
                 <button type="submit" class="order" name="order_submit">สั่งอาหาร</button>
-                <a href="../order/order.php?table_id=<?php echo $selectedTable; ?>">ย้อนกลับ</a>
             </div>
         </form>
     </div>
@@ -112,7 +108,11 @@ if (!$db) {
 </html>
 
 <script>
-    function goBack() {
-        window.history.back();
-    }
+    document.getElementById('back-img').addEventListener('click', function() {
+        window.location.href = '../order/order.php?table_id=<?php echo $selectedTable; ?>';
+    });
+    
+    document.getElementById('logo').addEventListener('click', function() {
+        window.location.href = '../homepage';
+    });
 </script>

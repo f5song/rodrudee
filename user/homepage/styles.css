@@ -53,6 +53,10 @@ header {
 
 }
 
+header:hover{
+    cursor: pointer;
+}
+
 header div {
     display: flex;
     align-items: center;
@@ -303,3 +307,5 @@ footer .footer-bottom {
     gap: 1px;
     display: flex;
 }
+
+

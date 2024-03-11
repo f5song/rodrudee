@@ -38,19 +38,17 @@ if (!$db) {
     <title>รสฤดี</title>
 </head>
 
-<body>
-    <header>
-        <div>
-            <div style="font-size: 100px;">รสฤดี</div>
+<header>
+        <div class="logo" id="logo">
+            <div style="font-size: 5vw;" id="logo-icon">รสฤดี</div>
         </div>
         <nav>
-            <a href="#">หน้าหลัก</a>
-            <a href="#">รายการอาหาร</a>
-            <a href="#">ข่าวสารและโปรโมชั่น</a>
+            <a href="../homepage">หน้าหลัก</a>
+            <a href="order.php">รายการอาหาร</a>
         </nav>
     </header>
 
-    <div class="text">
+    <div class="banner"></div>
     </div>
 
     <div class="region-container">
@@ -199,4 +197,8 @@ if (!$db) {
         } 
         
     }
+
+    document.getElementById('logo').addEventListener('click', function() {
+        window.location.href = '../homepage';
+    });
 </script>
