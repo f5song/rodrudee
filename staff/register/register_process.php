@@ -1,7 +1,7 @@
 <?php
 // ตรวจสอบว่ามีการส่งข้อมูลมาจากฟอร์มหรือไม่
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
     // รับค่าชื่อจริง, นามสกุล, ชื่อผู้ใช้ และรหัสผ่านจากฟอร์ม
     $firstName = $_POST["first-name"];
     $lastName = $_POST["last-name"];
@@ -15,17 +15,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit();
     }
 
-    // ทำการเชื่อมต่อฐานข้อมูล
-    $servername = "localhost";
-    $usernameDB = "root"; // แทนที่ด้วยชื่อผู้ใช้ฐานข้อมูลของคุณ
-    $passwordDB = ""; // แทนที่ด้วยรหัสผ่านฐานข้อมูลของคุณ
-    $dbname = "rodrudee"; // แทนที่ด้วยชื่อฐานข้อมูลของคุณ
-
-    $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../rodrudee.db');
+        }
     }
+
+    $db = new MyDB();
+    if (!$db) {
+        echo $db->lastErrorMsg();
+    }
+
 
     // แฮชรหัสผ่าน
     $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
@@ -41,4 +43,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 }
-?>

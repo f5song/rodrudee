@@ -1,23 +1,31 @@
 <?php
 session_start();
 
+$menu_ids = $_SESSION['selectedMenuIds'] ?? [];
+$menu_counts = array_count_values($menu_ids);
 
-$table_id = isset($_SESSION['table_id']) ? $_SESSION['table_id'] : '';
+$selectedTable = $_SESSION['selectedTable'] ?? '';
+$totalPrice = $_SESSION['totalPrice'] ?? 0;
+$orderCount = $_SESSION['orderCount'] ?? 0;
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "rodrudee";
+echo "Table ID: $selectedTable<br>";
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../../rodrudee.db');
+    }
+}
 
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$db = new MyDB();
+if (!$db) {
+    echo $db->lastErrorMsg();
 }
 
 $sql = "SELECT o.*, m.name as menu_name FROM orders o
         JOIN menu m ON o.menu_id = m.menu_id
-        WHERE o.table_id = '$table_id'";
-$result = $conn->query($sql);
+        WHERE o.table_id = '$selectedTable'";
+$result = $db->query($sql);
 
 ?>
 
@@ -55,7 +63,7 @@ $result = $conn->query($sql);
 
     <div class="table-information" style="overflow-x:auto;">
         <div class="table-num">
-            โต๊ะ <?php echo $table_id; ?>
+            โต๊ะ <?php echo $selectedTable; ?>
         </div>
         <div class="white-container">
             <div class="topic" id="header">
@@ -76,31 +84,30 @@ $result = $conn->query($sql);
             <div class="line-under-topic"></div>
 
             <?php
-            if ($result->num_rows > 0) {
-                $counter = 1;
-                while ($row = $result->fetch_assoc()) {
+            $counter = 1;
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
             ?>
-                    <div class="topic" id="table-order">
-                        <div class="each-order">
-                            <p><?php echo $counter; ?></p>
-                        </div>
-                        <div class="each-order">
-                            <p><?php echo $row['menu_name']; ?></p>
-                        </div>
-                        <div class="each-order">
-                            <p><?php echo $row['quantity']; ?></p>
-                        </div>
-                        <div class="each-order">
-                            <div class="status" id="<?php echo ($row['order_status']) ?>">
-                                <?php echo $row['order_status']; ?>
-                            </div>
+                <div class="topic" id="table-order">
+                    <div class="each-order">
+                        <p><?php echo $counter; ?></p>
+                    </div>
+                    <div class="each-order">
+                        <p><?php echo $row['menu_name']; ?></p>
+                    </div>
+                    <div class="each-order">
+                        <p><?php echo $row['quantity']; ?></p>
+                    </div>
+                    <div class="each-order">
+                        <div class="status" id="<?php echo ($row['order_status']) ?>">
+                            <?php echo $row['order_status']; ?>
                         </div>
                     </div>
-                    <div class="line-under-table-order"></div>
+                </div>
+                <div class="line-under-table-order"></div>
             <?php
-                    $counter++;
-                }
-            } else {
+                $counter++;
+            }
+            if ($counter === 1) {
                 echo '<p>No orders for this table.</p>';
             }
             ?>
@@ -134,13 +141,22 @@ $result = $conn->query($sql);
 
         </div>
     </footer>
-    <?php
-    // Unset all session variables
-    session_unset();
-
-    // Destroy the session
-    session_destroy();
-    ?>
 </body>
 
 </html>
+
+<script>
+    function goBack() {
+        window.location.href = '../order/order.php?table_id=<?php echo $selectedTable; ?>';
+    }
+    window.onload = function() {
+        setTimeout(function() {
+            <?php
+            unset($_SESSION['selectedMenuIds']);
+            unset($_SESSION['totalPrice']);
+            unset($_SESSION['orderCount']);
+            ?>
+        }, 5000);
+
+    };
+</script>

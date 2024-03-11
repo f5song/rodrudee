@@ -1,19 +1,22 @@
 <?php
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
+
     $username = $_POST["username"];
     $password = $_POST["password"];
 
-    $servername = "localhost";
-    $usernameDB = "root";
-    $passwordDB = "";
-    $dbname = "rodrudee";
-
-    $conn = new mysqli($servername, $usernameDB, $passwordDB, $dbname);
-
-    if ($conn->connect_error) {
-        die("Connection failed: " . $conn->connect_error);
+    class MyDB extends SQLite3
+    {
+        function __construct()
+        {
+            $this->open('../../rodrudee.db');
+        }
     }
+
+    $db = new MyDB();
+    if (!$db) {
+        echo $db->lastErrorMsg();
+    }
+
 
     $sql = "SELECT * FROM staff WHERE username = '$username'";
     $result = $conn->query($sql);
@@ -44,4 +47,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $conn->close();
 }
-?>

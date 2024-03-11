@@ -1,15 +1,16 @@
 <?php
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "rodrudee";
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../../../rodrudee.db');
+    }
+}
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$db = new MyDB();
+if (!$db) {
+    echo $db->lastErrorMsg();
 }
 
 $sql = "SELECT o.*, m.name as menu_name FROM orders o

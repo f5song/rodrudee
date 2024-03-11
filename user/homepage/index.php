@@ -1,36 +1,44 @@
 <?php
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "rodrudee";
 
-$conn = new mysqli($servername, $username, $password, $dbname);
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../../rodrudee.db');
+    }
+}
 
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+$db = new MyDB();
+if (!$db) {
+    echo $db->lastErrorMsg();
 }
 
 $sql = "SELECT table_id, table_status FROM tables WHERE table_status = 'ว่าง'";
-$result = $conn->query($sql);
+$result = $db->query($sql);
 
-if ($result->num_rows > 0) {
+if ($result) {
+    $rows = [];
+    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+        $rows[] = $row;
+    }
 
-    $rows = $result->fetch_all(MYSQLI_ASSOC);
+    if (count($rows) > 0) {
+        $selectedRow = $rows[array_rand($rows)];
+        $selectedTable = $selectedRow["table_id"];
 
-    $selectedRow = $rows[array_rand($rows)];
+        $updateSql = "UPDATE tables SET table_status = 'ไม่ว่าง' WHERE table_id = $selectedTable";
+        $db->query($updateSql);
 
-    $selectedTable = $selectedRow["table_id"];
-
-    $updateSql = "UPDATE tables SET table_status = 'ไม่ว่าง' WHERE table_id = $selectedTable";
-    $conn->query($updateSql);
-
-    $totalTables = count($rows);
+        $totalTables = count($rows);
+    } else {
+        $totalTables = 0;
+        $selectedTable = 0;
+    }
 } else {
-    $totalTables = 0;
-    $selectedTable = 0;
+    echo "Query failed.";
 }
 
-$conn->close();
+$db->close();
 ?>
 
 
@@ -140,15 +148,15 @@ $conn->close();
 <script>
     function orderNow() {
         var totalTables = <?php echo $totalTables; ?>;
-        
+
         if (totalTables > 0) {
             var selectedTable = <?php echo $selectedTable; ?>;
-            sessionStorage.setItem('selectedTable', selectedTable);
             window.location.href = "../order/order.php?table=" + selectedTable;
         } else {
             alert('ขออภัย ไม่มีโต๊ะว่างในขณะนี้');
         }
     }
 </script>
+
 
 </html>

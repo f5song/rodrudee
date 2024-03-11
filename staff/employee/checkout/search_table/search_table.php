@@ -1,15 +1,19 @@
 <?php
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "rodrudee";
-
-$conn = mysqli_connect($servername, $username, $password, $dbname);
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../../../rodrudee.db');
+    }
 }
+
+$db = new MyDB();
+if (!$db) {
+    echo $db->lastErrorMsg();
+}
+
 
 $tablesQuery = "SELECT * FROM tables";
 $tablesResult = $conn->query($tablesQuery);
@@ -17,26 +21,24 @@ $tablesResult = $conn->query($tablesQuery);
 if ($tablesResult) {
     $tables = $tablesResult->fetch_all(MYSQLI_ASSOC);
 } else {
-    $tables = array(); // Default to an empty array if there's an error or no data
+    $tables = array();
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['table']) && !empty($_POST['table'])) {
         $_SESSION['table_id'] = $_POST['table'];
-        $selectedTableId = $_SESSION['table_id']; // Assign selected table to $selectedTableId
+        $selectedTableId = $_SESSION['table_id'];
 
-        // Check if there are open orders for the selected table
+
         $selectOrdersQuery = "SELECT * FROM orders WHERE table_id = '$selectedTableId' AND pay_status = 'ยังไม่จ่าย'";
         $ordersResult = $conn->query($selectOrdersQuery);
 
         if ($ordersResult && $ordersResult->num_rows > 0) {
-            // Fetch the first order data to get the same transaction_id for all orders
             $firstOrderData = $ordersResult->fetch_assoc();
             $firstOrderId = $firstOrderData['order_id'];
             $transactionId = generateUniqueTransactionId();
 
             do {
-                // Insert data into the transactions table with the same transaction_id for all orders
                 $insertTransactionQuery = "INSERT INTO transactions (transaction_id, order_id, transaction_time) 
                                             VALUES ('$transactionId', '{$firstOrderData['order_id']}', NOW())";
 
@@ -45,7 +47,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 }
             } while ($firstOrderData = $ordersResult->fetch_assoc());
 
-            // Redirect after successfully inserting data
             header("Location: ../method/method.php");
             exit();
         } else {
@@ -58,7 +59,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 $conn->close();
 
-// Function to generate a unique transaction_id
 function generateUniqueTransactionId()
 {
     return uniqid('TRANS_', true);

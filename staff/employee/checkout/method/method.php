@@ -1,11 +1,7 @@
 <?php
-// Start the session
 session_start();
-
-// Initialize a variable to store the table_id
 $tableId = '';
 
-// Check if the session variable is set and not empty
 if (isset($_SESSION['table_id']) && !empty($_SESSION['table_id'])) {
     $tableId = $_SESSION['table_id'];
 }

@@ -2,23 +2,29 @@
 session_start();
 
 if (isset($_GET['table'])) {
-    $selectedTable = $_GET['table'];
+    $_SESSION['selectedTable'] = $_GET['table'];
 }
+
+$selectedTable = $_SESSION['selectedTable'] ?? '';
 
 $totalPrice = $_SESSION['totalPrice'] ?? 0;
 
 $orderCount = $_SESSION['orderCount'] ?? 0;
 
-   class MyDB extends SQLite3 {
-      function __construct() {
-         $this->open('../../rodrudee.db');
-      }
-   }
 
-   $db = new MyDB();
-   if(!$db) {
-      echo $db->lastErrorMsg();
-   }
+class MyDB extends SQLite3
+{
+    function __construct()
+    {
+        $this->open('../../rodrudee.db');
+    }
+}
+
+$db = new MyDB();
+if (!$db) {
+    echo $db->lastErrorMsg();
+}
+echo 'table: '. $selectedTable;
 
 ?>
 
@@ -185,7 +191,13 @@ $orderCount = $_SESSION['orderCount'] ?? 0;
         orderCountElement.textContent = orderCount;
 
         updateSession();
+    }
 
-        console.log("Selected Menu IDs:", selectedMenuIds);
+    function goToAnotherPage() {
+        var selectedTable = <?php echo json_encode($_SESSION['selectedTable'] ?? ''); ?>;
+        if (selectedTable) {
+            window.location.href = "../cart/cart.php?table=" + selectedTable;
+        } 
+        
     }
 </script>

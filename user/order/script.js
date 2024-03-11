@@ -60,12 +60,3 @@ function updateSession() {
     var data = 'selectedMenuIds=' + JSON.stringify(selectedMenuIds);
     xhr.send(data);
 }
-
-function goToAnotherPage() {
-    var selectedTable = sessionStorage.getItem('selectedTable');
-    if (selectedTable) {
-        window.location.href = "../cart/cart.php?table=" + selectedTable;
-    } else {
-        alert('กรุณาเลือกโต๊ะก่อนทำการสั่งอาหาร');
-    }
-}
