@@ -18,91 +18,93 @@ body {
     src: url('../../font/PGVIM.ttf') format('opentype');
 }
 
+.nav {
+    display: flex;
+    width: auto;
+    height: clamp(3rem, 10vw, 5rem); /* ความสูงของแถบนำทาง */
+    background-color: #232D3F;
+}
+
 .top {
     text-align: center;
     background-color: #2A435D;
-    margin-bottom: 15px;
-    background-size: cover;
-    background-position: center;
-    padding: 20px;
+    margin-bottom: clamp(0.3rem, 1vw, 1rem); /* ระยะห่างด้านล่างของส่วนบน */
+    padding: clamp(0.5rem, 2vw, 2rem); /* ระยะห่างและขนาดของพื้นหลังส่วนบน */
 }
 
 .text {
     text-align: center;
     color: white;
-    font-size: 96px;
+    font-size: clamp(2rem, 8vw, 6rem);
     background-image: url('Rectangle 58.png');
     background-size: cover;
     background-position: center;
-    padding: 50px;
+    padding: clamp(1rem, 4vw, 4rem); /* ระยะห่างและขนาดของพื้นหลังข้อความ */
 }
 
 .rodruedee {
     font-family: 'PGVIM';
     text-align: center;
     color: #001F33;
-    margin-top: 10px;
-    font-size: 96px;
+    margin-top: clamp(0.3rem, 1vw, 1rem);
+    font-size: clamp(2rem, 8vw, 6rem);
     background-size: cover;
     background-position: center;
 }
 
-
 .login-container {
     background-color: #FFF8EE;
-    width: 1028px;
-    height: 600px;
-    border-radius: 30px;
+    width: clamp(30rem, 80vw, 60rem);
+    border-radius: clamp(1rem, 4vw, 3rem);
     display: flex;
-    margin: auto;
-    margin-top: 50px;
-    justify-content: center;
     flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-bottom: 87px;
+    margin: auto;
+    margin-top: clamp(1rem, 4vw, 2rem);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    padding: 18px;
 }
 
 .login-text {
     color: #232D3F;
-    font-size: 40px;
+    font-size: clamp(1.5rem, 4vw, 3rem);
     font-family: 'Moh Luang';
-    margin-bottom: 41px;
+    margin-bottom: clamp(1rem, 1vw, 1rem);
 }
 
 .text-field input {
-    width: 505px;
-    height: 64px;
+    width: clamp(14rem, 40vw, 40rem);
+    height: clamp(3rem, 8vw, 4rem);
     border-color: #232D3F;
-    border-radius: 20px;
-    font-size: 30px;
-    padding-left: 10px;
+    border-radius: clamp(1rem, 4vw, 1rem);
+    font-size: clamp(1rem, 2vw, 2.5rem);
+    padding-left: clamp(0.5rem, 1vw, 1rem);
 }
 
 .username-text label {
-    font-size: 25px;
+    font-size: clamp(2rem, 2vw, 2rem);
 }
 
-
-.center{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
 .login-button {
     font-family: 'Moh Luang';
     background-color: #232D3F;
     color: white;
     border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-size: 25px;
+    border-radius: clamp(0.5rem, 2vw, 1.5rem);
+    padding: clamp(0.5rem, 2vw, 1rem) clamp(2rem, 4vw, 4rem);
+    font-size: clamp(1.5rem, 4vw, 2rem);
     cursor: pointer;
     outline: none;
     transition: background-color 0.3s ease;
-    margin-top: 40px;
+    margin-top: clamp(2rem, 4vw, 3rem);
+    flex: 0 0 auto;
 }
-
+.center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .login-button:hover {
     background-color: #445566;
@@ -112,3 +114,4 @@ body {
 .login-button:active {
     background-color: #001F33;
 }
+
