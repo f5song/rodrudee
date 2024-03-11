@@ -24,7 +24,6 @@ $db = new MyDB();
 if (!$db) {
     echo $db->lastErrorMsg();
 }
-echo 'table: '. $selectedTable;
 
 ?>
 
