@@ -4,8 +4,23 @@ session_start();
 if (isset($_GET['table'])) {
     $selectedTable = $_GET['table'];
 }
+
 $totalPrice = $_SESSION['totalPrice'] ?? 0;
+
 $orderCount = $_SESSION['orderCount'] ?? 0;
+
+   class MyDB extends SQLite3 {
+      function __construct() {
+         $this->open('../../rodrudee.db');
+      }
+   }
+
+   $db = new MyDB();
+   if(!$db) {
+      echo $db->lastErrorMsg();
+   } else {
+      echo "Opened database successfully<br>";
+   }
 
 ?>
 
@@ -102,21 +117,12 @@ $orderCount = $_SESSION['orderCount'] ?? 0;
 
     <div class="food-list" id="foodList">
         <?php
-        $servername = "localhost";
-        $username = "root";
-        $password = "";
-        $dbname = "rodrudee";
-
-        $conn = mysqli_connect($servername, $username, $password, $dbname);
-        if ($conn->connect_error) {
-            die("Connection failed: " . $conn->connect_error);
-        }
         $sql = "SELECT * FROM menu";
-        $result = $conn->query($sql);
+        $result = $db->query($sql);
 
-        if ($result->num_rows > 0) {
+        if ($result) {
             echo '<div class="food-list">';
-            while ($row = $result->fetch_assoc()) {
+            while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $menu_id = $row["menu_id"];
                 echo '<div class="food-menu-container" data-region="' . $row["region"] . '" data-type="' . $row["category"] . '" data-menu-id="' . $menu_id . '">';
                 echo '<img class="food-pic" src="' . $row["file_path"] . '"><img>';
@@ -124,7 +130,7 @@ $orderCount = $_SESSION['orderCount'] ?? 0;
                 echo '<div class="food-price-button" onclick="addToCart(this)">';
                 echo '<img id="cart" src="asset/cart.png"><img>';
                 echo '<img id="line" src="asset/line.png"><img>';
-                echo '<p class="food-price">' . $row["price"] . '</p>';
+                echo '<p class="food-price">' . $row["price"] . '.-</p>';
                 echo '</div></div>';
             }
             echo '</div>';
@@ -132,9 +138,9 @@ $orderCount = $_SESSION['orderCount'] ?? 0;
             echo "0 results";
         }
 
-        $conn->close();
+        $db->close();
+
         ?>
-    </div>
 
 </body>
 
