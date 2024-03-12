@@ -1,0 +1,342 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: 'Moh Luang';
+    font-size: 25px;
+    
+}
+
+
+
+body {
+    font-family: 'Moh Luang';
+}
+
+@font-face {
+    font-family: 'Moh Luang';
+    src: url('../menu/Moh-Luang.ttf') format('opentype');
+}
+
+@font-face {
+    font-family: 'PGVIM';
+    src: url('../menu/PGVIM.ttf') format('opentype');
+}
+
+้h1{
+    font-family: 'Moh Luang';
+}
+header {
+    background-color: #232D3F;
+    color: #fff;
+    padding: 8px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    font-size: 25px;
+    max-height: 100px;
+}
+
+manager-header{
+    display: flex;
+    justify-content: flex-end;
+}
+
+header img {
+    max-width: 95px;
+    max-height: 30px;
+    margin-right: 8px;
+}
+
+.queue {
+    background-image: url('banner.png');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    justify-content: right;
+    height: 80px;
+}
+
+.container{
+    margin-top: 30px;
+}
+
+.option_container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    height: 80px;
+    background-color: #232D3F;
+}
+
+.option-frame {
+    width: 420px;
+    height: 80px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.option {
+    width: 260px;
+    height: 55px;
+    background-color: #FFF8EE;
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#payment.option-name,
+#status.option-name {
+    color: rgb(0, 0, 0);
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.option-frame img {
+    padding-left: 14px;
+}
+
+.option-frame:hover {
+    background-color: #59779a;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.content{
+    display: flex;
+}
+.head-button{
+    width: 100%;
+    height: 80px;
+    display: flex;
+    align-items: center;
+}
+.button-add{
+    width: 180px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: 2px 2px #888888;
+    background-color: #abd2f8;
+}
+.button-add:hover{
+    background-color: #C7D8E9;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.box{
+    width: 100%;
+    height: 60vh;
+    background-color: #bec9d4;
+    border-radius: 15px;
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    justify-items: center;
+    padding: 1%;
+}
+.space{
+    width: 10%;
+    height: 100%;
+}
+.center-content{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.box-test1{
+    background-color: #ffd59b;
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-style: none;
+    border-radius: 15px;
+    box-shadow: 2px 2px #c2c2c2;
+    transition: all 0.3s ease;
+}
+
+.box-test1:hover {
+    transform: scale(1.1); 
+    box-shadow: 5px 5px #c2c2c2; 
+}
+
+.p-name{
+    font-size: 30px;
+    font-family: 'PGVIM';
+}
+.button-modify{
+    background-color: #FFCC19;
+    width: 80px;
+    border-style: none;
+    border-radius: 7px;
+    font-size: 25px;
+}
+.button-delete{
+    background-color: #C94242;
+    width: 110px;
+    border-style: none;
+    border-radius: 7px;
+    font-size: 25px;
+}
+.button-modify:hover{
+    background-color: #ebbe1d;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.button-delete:hover{
+    background-color: #b43d3d;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.selected{
+    background-color: #59779a;
+}
+.headtext{
+    width: 180px;
+    height: 50px;
+    font-size: 30px;
+    border-radius: 10px;
+    border-style: none;
+    box-shadow: 2px 2px #888888;
+    background-color: #d0e7ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.justtext{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+    .option_frame {
+        width: 100%;
+    }
+    .option {
+        width: 100%;
+        height: 55px; /* Adjust as needed */
+        font-size: 20px; /* Adjust as needed */
+    }
+    .option_frame img {
+        width: 40px;
+        height: 40px;
+    }
+    .option_frame span {
+        font-size: 40px;
+    }
+    .button-add {
+        width: 150px;
+        height: 40px;
+        font-size: 25px;
+    }
+    .box-test1 {
+        width: calc(100% - 20px);
+        max-width: 250px;
+    }
+    .p-name {
+        font-size: 25px;
+    }
+    .button-modify,
+    .button-delete {
+        width: 60px;
+        font-size: 20px;
+    }
+    .text-button span {
+        font-size: 30px;
+    }
+    .text-button button {
+        font-size: 25px;
+        width: 90px;
+    }
+    .row {
+        padding-left: 2%;
+        padding-right: 2%;
+    }
+    .left,
+    .right span {
+        font-size: 20px;
+    }
+    .boxnum {
+        width: 30px;
+        border-radius: 10px;
+    }
+    .status {
+        width: 80px;
+        height: 20px;
+        font-size: 15px;
+    }
+    .radiocheck {
+        width: 20px;
+    }
+    .button-modify,
+    .button-delete {
+        width: 80px;
+        font-size: 20px;
+    }
+    .headtext {
+        width: 160px;
+        height: 40px;
+        font-size: 25px;
+    }
+    .justtext {
+        font-size: 30px;
+    }
+}
+
+.container {
+    max-width: 800px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+
+.menu-list {
+    margin-top: 20px;
+}
+
+.menu-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    font-size: 18px;
+}
+
+.menu-item:last-child {
+    border-bottom: none;
+}
+
+.menu-item:hover {
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.box-test1-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    gap: 30px;
+    padding-bottom: 30px;
+}
+
+
+.best-seller{
+    font-size: 60px;
+    text-align: center;
+}
+

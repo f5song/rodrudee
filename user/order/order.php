@@ -126,7 +126,7 @@ if (!$db) {
             while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
                 $menu_id = $row["menu_id"];
                 echo '<div class="food-menu-container" data-region="' . $row["region"] . '" data-type="' . $row["category"] . '" data-menu-id="' . $menu_id . '">';
-                echo '<img class="food-pic" src="' . $row["file_path"] . '"><img>';
+                echo '<img class="food-pic" src="../' . $row["file_path"] . '"><img>';
                 echo '<p class="food-name">' . $row["name"] . '</p>';
                 echo '<div class="food-price-button" onclick="addToCart(this)">';
                 echo '<img id="cart" src="asset/cart.png"><img>';
