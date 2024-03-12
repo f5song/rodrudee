@@ -40,9 +40,8 @@
 
             if (usernameInput === '' || passwordInput === '') {
                 alert('กรุณากรอกข้อมูลให้ถูกต้อง');
-                event.preventDefault(); // Prevent the form from being submitted
-            } else {
-                window.location.href = 'state.html'; // Redirect to state.html
+                event.preventDefault();
+                window.location.href = 'state.html';
             }
         });
     </script>
