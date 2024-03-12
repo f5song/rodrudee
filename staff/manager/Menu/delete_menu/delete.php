@@ -70,7 +70,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="box-test1">
-                    <img src="<?php echo $file_path; ?>" id="food-selected-img" alt="" width="200" height="150">
+                    <?php echo '<img src="../../../' . $row["file_path"] . '" id="food-selected-img" alt="" width="200" height="150">';?>
                     <p class="p-name"><?php echo $name; ?></p>
                 </div>
                 <div class="forbutton">
