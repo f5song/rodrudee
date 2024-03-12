@@ -225,7 +225,11 @@ header img {
     height: 30%;
     justify-content: center;
 }
-
+.line-under-topic {
+    width: auto;
+    height: 1px;
+    background-color: #616161;
+}
 .text-button {
     display: flex;
     justify-content: space-between;
@@ -301,6 +305,7 @@ header img {
     height: 30px;
     border-radius: 15px;
 }
+
 
 .radiocheck {
     width: 25px;

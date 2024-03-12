@@ -12,39 +12,48 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $orderitemIdsArray = explode(',', $orderitemIds);
     $newStatusesArray = explode(',', $newStatuses);
 
-    // ตรวจสอบขนาดของอาร์เรย์ให้มีขนาดเท่ากัน
+    // Validate array sizes
     if (count($orderitemIdsArray) !== count($newStatusesArray)) {
         echo json_encode(["success" => false, "error" => "Mismatched array sizes."]);
         exit();
     }
 
-    $db = new SQLite3('../../rodrudee.db');
-    if (!$db) {
-        die("Connection failed: " . $db->lastErrorMsg());
-    }
+    try {
+        $db = new SQLite3('../../rodrudee.db');
 
-    $sql = "UPDATE order_item SET status = :status WHERE orderitem_id = :orderitemId";
-    $stmt = $db->prepare($sql);
+        // Begin transaction
+        $db->exec('BEGIN');
 
-    for ($i = 0; $i < count($orderitemIdsArray); $i++) {
-        $orderitemId = $orderitemIdsArray[$i];
-        $status = $newStatusesArray[$i];
+        $sql = "UPDATE order_item SET status = :status WHERE orderitem_id = :orderitemId";
+        $stmt = $db->prepare($sql);
 
-        $stmt->bindParam(':status', $status, SQLITE3_TEXT);
-        $stmt->bindParam(':orderitemId', $orderitemId, SQLITE3_INTEGER);
+        for ($i = 0; $i < count($orderitemIdsArray); $i++) {
+            $orderitemId = $orderitemIdsArray[$i];
+            $status = $newStatusesArray[$i];
 
-        $result = $stmt->execute();
+            $stmt->bindParam(':status', $status, SQLITE3_TEXT);
+            $stmt->bindParam(':orderitemId', $orderitemId, SQLITE3_INTEGER);
 
-        if (!$result) {
-            echo json_encode(["success" => false, "error" => $db->lastErrorMsg()]);
-            $db->close();
-            exit();
+            $result = $stmt->execute();
+
+            if (!$result) {
+                throw new Exception($db->lastErrorMsg());
+            }
         }
+
+        // Commit transaction
+        $db->exec('COMMIT');
+        echo json_encode(["success" => true]);
+
+    } catch (Exception $e) {
+        // Rollback transaction in case of error
+        $db->exec('ROLLBACK');
+        echo json_encode(["success" => false, "error" => $e->getMessage()]);
+    } finally {
+        // Close the database connection
+        $db->close();
     }
 
-    echo json_encode(["success" => true]);
-
-    $db->close();
 } else {
     header("HTTP/1.1 403 Forbidden");
     exit();

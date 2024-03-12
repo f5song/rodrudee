@@ -39,16 +39,26 @@
             </a>
         </div>
     </top>
+
     <content class="qr">
         <img src="../../../asset/QR.png"></img>
         <div class="button-container">
-            <button class="button" onclick="redirectSearchPage()">ชำระเสร็จสิ้น</button>
+            <button class="button" onclick="completePayment()">ชำระเสร็จสิ้น</button>
         </div>
     </content>
 
     <script>
-        function redirectSearchPage() {
-            window.location.href = '../search_table/search_table.php';
+        function completePayment() {
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = xhr.responseText;
+                    console.log(response); 
+                    window.location.href = '../search_table/search_table.php';
+                }
+            };
+            xhr.open("GET", "../pay_cash/update_table_status.php", true);
+            xhr.send();
         }
     </script>
 

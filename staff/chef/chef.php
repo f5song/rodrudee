@@ -70,13 +70,6 @@ $result = $db->query($sql);
                         $orderStatus = $row['status'];
 
                         if ($tableId != $currentTableId) {
-                            if ($currentTableId !== null) {
-                                echo '</div>';
-                                echo '<div class="button-update">';
-                                echo '<button>Update</button>';
-                                echo '</div>';
-                                echo '</div>';
-                            }
 
                             echo '<div class="box-test1">';
                             echo '<div class="headliner">';
@@ -102,7 +95,7 @@ $result = $db->query($sql);
                         echo '</div>';
                         echo '<div class="right">';
                         echo '<input class="radiocheck" type="radio" id="option1" name="notyet" value="option1" style="display: none;">';
-                        echo '<label for="option' . $orderId . '" class="status" data-table-id="' . $tableId . '" data-orderitem-id="' . $orderitem_id . '">' . $orderStatus. '</label>';
+                        echo '<label for="option' . $orderId . '" class="status" data-table-id="' . $tableId . '" data-orderitem-id="' . $orderitem_id . '">' . $orderStatus . '</label>';
                         echo '</div>';
                         echo '</div>';
                     }
@@ -122,14 +115,12 @@ $result = $db->query($sql);
         </div>
         <div class="space"></div>
     </div>
-    <?php echo $tableId; ?>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var statusLabels = document.querySelectorAll('.status');
             var updateButton = document.getElementById('updateButton');
 
-            // ประกาศตัวแปร orderitemIds และ newStatuses เพื่อเก็บข้อมูลที่จะส่งไปทั้งหมด
             var orderitemIds = [];
             var newStatuses = [];
 
@@ -156,7 +147,7 @@ $result = $db->query($sql);
             });
 
             function updateOrderStatus(orderitemIds, newStatuses) {
-                var updateXhr = new XMLHttpRequest(); // เปลี่ยนชื่อตัวแปรเป็น updateXhr
+                var updateXhr = new XMLHttpRequest();
                 updateXhr.open('POST', 'update_order_status.php', true);
                 updateXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
@@ -167,8 +158,6 @@ $result = $db->query($sql);
 
                             if (response.success) {
                                 console.log('Order status updated successfully.');
-                                // หากต้องการ redirect หน้าให้ใช้ window.location
-                                // window.location = 'update_order_status.php';
                             } else {
                                 console.error('Error updating order status:', response.error);
                             }
