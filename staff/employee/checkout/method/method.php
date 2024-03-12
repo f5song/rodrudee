@@ -59,10 +59,6 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
     <top>
         <div>
             <div class="queue">
-                <!-- <div class="queue_frame">
-                    <img src="../../../asset/queuewithbg.png"></img>
-                    <div class="num_queue">3 คิว</div>
-                </div> -->
             </div>
             <div class="yellow-bar"></div>
         </div>
@@ -113,7 +109,10 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
                 if ($tableInfoResult) {
                     $orderCount = 1;
                     $totalPrice = 0;
+                    $menuQuantities = array(); // เก็บจำนวนของแต่ละ menu_id
                     while ($row = $tableInfoResult->fetchArray(SQLITE3_ASSOC)) {
+                        $menuId = $row['menu_id'];
+                        $menuQuantities[$menuId] = isset($menuQuantities[$menuId]) ? $menuQuantities[$menuId] + $row['quantity'] : $row['quantity'];
                 ?>
                         <div class="topic" id="table-order">
                             <div class="each-order">
@@ -126,18 +125,18 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
                                 <p><?php echo $row['quantity']; ?></p>
                             </div>
                             <div class="each-order">
-                                <div class="price"> ฿<?php echo $row['price']; ?></div>
+                                <div class="price"> ฿<?php echo number_format($row['price'] * $row['quantity'], 2); ?></div>
                             </div>
                         </div>
                         <div class="line-under-table-order"></div>
                 <?php
-                        $totalPrice += $row['price'];
+                        $totalPrice += $row['price'] * $row['quantity'];
                         $orderCount++;
                     }
                 }
                 ?>
-
             </div>
+        </div>
         </div>
 
         <div class="total">รวม ฿<?php echo number_format($totalPrice, 2); ?> บาท</div>

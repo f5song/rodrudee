@@ -48,6 +48,7 @@ $result = $db->query($sql);
         <nav>
             <a href="../homepage">หน้าหลัก</a>
             <a href="../order/order.php?table_id=<?php echo $selectedTable; ?>">รายการอาหาร</a>
+            <a href="../foodlist/foodlist.php?table_id=<?php echo $selectedTable; ?>">ออเดอร์</a>
         </nav>
     </header>
 
@@ -113,7 +114,7 @@ $result = $db->query($sql);
                 $counter++;
             }
             if ($counter === 1) {
-                echo '<p>No orders for this table.</p>';
+                echo '<p style="font-size: 2em;">ไม่มีรายการอาหารที่สั่ง<p>';
             }
         }
             ?>

@@ -62,6 +62,7 @@ $db->close();
             <nav>
                 <a href="index.php">หน้าหลัก</a>
                 <a href="#" onclick="orderNow()">รายการอาหาร</a>
+                <a href="index.php">ออเดอร์</a>
             </nav>
         </header>
 
