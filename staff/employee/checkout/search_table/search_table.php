@@ -111,7 +111,9 @@ function generateUniqueTransactionId()
     <content>
         <form method="post" action="">
             <div class="search-table">
-                <div class="option-name" id="tableLabel"><span>โต๊ะ</span></div>
+                <div class="option-name" id="tableLabel">
+                    <span>โต๊ะ</span>
+                </div>
                 <div class="text-field">
                     <select id="tableInput" name="table" class="select-table">
                         <?php

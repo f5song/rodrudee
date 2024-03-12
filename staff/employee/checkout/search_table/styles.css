@@ -97,8 +97,10 @@ header img {
 .option-name {
     color: rgb(0, 0, 0);
     font-size: clamp(20px, 4vw, 30px);
-    padding-left: clamp(10px, 2vw, 15px);
-    padding-top: clamp(5px, 1vw, 11px);
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .option-frame img {
@@ -161,6 +163,13 @@ header img {
 
 .button:active {
     background-color: #001F33;
+}
+
+.select-table{
+    width: 75px;
+    height: 30px;
+    font-size: 20px;
+    border-radius: 10px;
 }
 
 @media screen and (max-width: 600px) {
