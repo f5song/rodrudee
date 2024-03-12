@@ -40,8 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $firstOrderId = $firstOrderData['order_id'];
                 $transactionId = generateUniqueTransactionId();
 
-                $db->exec('BEGIN TRANSACTION');
-
                 do {
                     $insertTransactionQuery = "INSERT INTO transactions (transaction_id, order_id, transaction_time) 
                                 VALUES ('$transactionId', '{$firstOrderData['order_id']}', CURRENT_TIMESTAMP)";
@@ -53,8 +51,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         error_log("Error inserting transaction: " . $db->lastErrorMsg());
                     }
                 } while ($firstOrderData = $ordersResult->fetchArray(SQLITE3_ASSOC));
-
-                $db->exec('COMMIT');
 
                 header("Location: ../method/method.php");
                 exit();

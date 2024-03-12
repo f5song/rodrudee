@@ -45,7 +45,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
             $quantity = $_POST['quantity_' . $menu_id];
             $status = 'รับออเดอร์';
 
-            if ($quantity > 0) {
+            // Check if the combination of order_id and menu_id already exists
+            $check_existence_sql = "SELECT COUNT(*) AS count FROM order_item 
+                                    WHERE order_id = '$order_id' AND menu_id = '$menu_id'";
+            $existence_result = $db->querySingle($check_existence_sql);
+
+            if ($existence_result == 0) {
+                // The combination does not exist, insert the data
                 $price_result = $db->query("SELECT price FROM menu WHERE menu_id = $menu_id");
                 $price_row = $price_result->fetchArray(SQLITE3_ASSOC);
                 $price = $price_row['price'];
@@ -53,8 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
                 $total_price = $quantity * $price;
 
                 $insert_order_item_sql = "INSERT INTO order_item (order_id, menu_id, quantity, status) 
-                VALUES ('$order_id', '$menu_id', '$quantity', '$status')";
-
+                    VALUES ('$order_id', '$menu_id', '$quantity', '$status')";
 
                 if ($db->exec($insert_order_item_sql) !== TRUE) {
                     echo "Error inserting order item: " . $db->lastErrorMsg();

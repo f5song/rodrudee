@@ -73,7 +73,7 @@ if (!$db) {
                             $menu_id = $row["menu_id"];
                             $count = $menu_counts[$menu_id] ?? 1;
                             echo '<div class="cart-items" id="cart-item-' . $menu_id . '">';
-                            echo '<img class="food-img" src="' . $row["file_path"] . '" alt="' . $row["name"] . '">';
+                            echo '<img class="food-img" src="../' . $row["file_path"] . '" alt="' . $row["name"] . '">';
                             echo '<div class="food">';
                             echo '<div class="food-item">' . $row["name"] . '</div>';
                             echo '</div>';
