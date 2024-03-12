@@ -56,20 +56,18 @@ $result = $db->query($sql);
         <div class="center-content">
             <div class="box">
 
-
-
-
                 <?php
                 if ($result) {
                     $currentTableId = null;
                     $orderCount = 0;
 
                     while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                        $orderitem_id = $row['orderitem_id'];
                         $tableId = $row['table_id'];
                         $orderId = $row['order_id'];
                         $menuName = $row['menu_name'];
                         $quantity = $row['quantity'];
-                        $orderStatus = $row['order_status'];
+                        $orderStatus = $row['status'];
 
                         if ($tableId != $currentTableId) {
                             if ($currentTableId !== null) {
@@ -84,7 +82,6 @@ $result = $db->query($sql);
                             echo '<div class="headliner">';
                             echo '<div class="text-button">';
                             echo "<span>โต๊ะ $tableId</span>";
-                            echo '<span><button>รับออเดอร์</button></span>';
                             echo '</div>';
                             echo '<div class="line-under-topic"></div>';
                             echo '</div>';
@@ -105,7 +102,7 @@ $result = $db->query($sql);
                         echo '</div>';
                         echo '<div class="right">';
                         echo '<input class="radiocheck" type="radio" id="option1" name="notyet" value="option1" style="display: none;">';
-                        echo '<label for="option' . $orderId . '" class="status" data-table-id="' . $tableId . '" data-menu-id="' . $tableId . '">กำลังทำ</label>';
+                        echo '<label for="option' . $orderId . '" class="status" data-table-id="' . $tableId . '" data-orderitem-id="' . $orderitem_id . '">' . $orderStatus. '</label>';
                         echo '</div>';
                         echo '</div>';
                     }
@@ -130,61 +127,61 @@ $result = $db->query($sql);
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var statusLabels = document.querySelectorAll('.status');
+            var updateButton = document.getElementById('updateButton');
 
-            // ประกาศตัวแปร tableId และ newStatus ไว้นอก loop หรือ event listener เพื่อให้สามารถเข้าถึงจากทุกที่
-            var tableId, newStatus;
+            // ประกาศตัวแปร orderitemIds และ newStatuses เพื่อเก็บข้อมูลที่จะส่งไปทั้งหมด
+            var orderitemIds = [];
+            var newStatuses = [];
 
             statusLabels.forEach(function(label) {
                 label.addEventListener('click', function() {
                     if (this.textContent === 'กำลังทำ') {
                         this.textContent = 'เสร็จสิ้น';
-                        tableId = this.dataset.tableId;
-                        newStatus = 'เสร็จสิ้น';
-                        console.log(newStatus, tableId);
+                        orderitemIds.push(this.dataset.orderitemId);
+                        newStatuses.push('เสร็จสิ้น');
                     } else {
                         this.textContent = 'กำลังทำ';
-                        tableId = this.dataset.tableId;
-                        newStatus = 'กำลังทำ';
-                        console.log(newStatus, tableId);
+                        orderitemIds.push(this.dataset.orderitemId);
+                        newStatuses.push('กำลังทำ');
                     }
                 });
             });
 
-            // เลือกปุ่ม Update ด้วย ID หรือคลาสและเพิ่มการดักจับคลิก
-            var updateButton = document.getElementById('updateButton');
             updateButton.addEventListener('click', function() {
-                if (tableId !== undefined && newStatus !== undefined) {
-                    updateOrderStatus(tableId, newStatus);
+                if (orderitemIds.length > 0) {
+                    updateOrderStatus(orderitemIds, newStatuses);
                 } else {
-                    console.error('Table ID or new status is undefined.');
+                    console.error('No order item IDs or new statuses to update.');
                 }
             });
 
-            function updateOrderStatus(tableId, newStatus) {
-                var xhr = new XMLHttpRequest();
-                xhr.open('POST', 'update_order_status.php', true);
-                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+            function updateOrderStatus(orderitemIds, newStatuses) {
+                var updateXhr = new XMLHttpRequest(); // เปลี่ยนชื่อตัวแปรเป็น updateXhr
+                updateXhr.open('POST', 'update_order_status.php', true);
+                updateXhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
 
-                xhr.onreadystatechange = function() {
-                    if (xhr.readyState == 4) {
-                        if (xhr.status == 200) {
-                            var response = JSON.parse(xhr.responseText);
+                updateXhr.onreadystatechange = function() {
+                    if (updateXhr.readyState == 4) {
+                        if (updateXhr.status == 200) {
+                            var response = JSON.parse(updateXhr.responseText);
 
                             if (response.success) {
                                 console.log('Order status updated successfully.');
+                                // หากต้องการ redirect หน้าให้ใช้ window.location
+                                // window.location = 'update_order_status.php';
                             } else {
                                 console.error('Error updating order status:', response.error);
                             }
                         } else {
-                            console.error('Error updating order status. HTTP status:', xhr.status);
+                            console.error('Error updating order status. HTTP status:', updateXhr.status);
                         }
                     }
                 };
 
-                // ส่งข้อมูลไปยังฟังก์ชัน update_order_status.php
-                var data = 'table_id=' + tableId + '&order_status=' + encodeURIComponent(newStatus);
-                xhr.send(data);
+                var data = 'orderitemIds=' + orderitemIds.join(',') + '&newStatuses=' + newStatuses.join(',');
+                updateXhr.send(data);
             }
+
         });
     </script>
 
