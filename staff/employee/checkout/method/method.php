@@ -63,7 +63,7 @@ $tableInfoResult = $db->query($sql);
                     </div>
                 </div>
             </a>
-            <a href="../checkout/search_table/search_table.php">
+            <a href="../search_table/search_table.php">
                 <div class="option-frame">
                     <div class="option">
                         <img src="../../../asset/bill.png">

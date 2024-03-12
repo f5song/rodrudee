@@ -22,7 +22,6 @@ if (!$db) {
 $paymentMethod = isset($_POST['payment_method']) ? $_POST['payment_method'] : '';
 $totalprice = isset($_POST['totalprice']) ? $_POST['totalprice'] : '';
 
-// ดึง order_id จากตาราง orders
 $orderIdQuery = "SELECT order_id FROM orders WHERE table_id = :tableId ORDER BY order_id DESC LIMIT 1";
 $orderIdStmt = $db->prepare($orderIdQuery);
 $orderIdStmt->bindParam(':tableId', $tableId, SQLITE3_INTEGER);
@@ -30,7 +29,6 @@ $orderIdResult = $orderIdStmt->execute();
 $row = $orderIdResult->fetchArray(SQLITE3_ASSOC);
 $orderId = $row['order_id'];
 
-// อัปเดตตาราง transactions
 $updateSql = "UPDATE transactions SET payment_method = :paymentMethod, total = :totalprice WHERE order_id = :orderId";
 $updateStmt = $db->prepare($updateSql);
 $updateStmt->bindParam(':paymentMethod', $paymentMethod, SQLITE3_TEXT);

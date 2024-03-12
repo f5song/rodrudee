@@ -42,7 +42,7 @@ a {
     text-decoration: none;
 }
 .queue {
-    background-image: url('../../asset/banner.png');
+    background-image: url('../../../asset/banner.png');
     background-size: cover;
     background-position: center;
     display: flex;
@@ -115,6 +115,7 @@ a {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
 /* content */
 .search-table {
     display: flex;
