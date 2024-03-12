@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
     }
 
     if (is_array($_SESSION['selectedMenuIds']) && !empty($_SESSION['selectedMenuIds'])) {
-        $order_status = 'รับออเดอร์'; 
-        $pay_status = ''; 
+        $order_status = 'ยังไม่จ่าย';
+        $pay_status = '';
 
         $order_time = date('Y-m-d H:i:s');
         $insert_order_sql = "INSERT INTO orders (table_id, order_status, order_time) 
@@ -43,6 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
 
         foreach ($_SESSION['selectedMenuIds'] as $menu_id) {
             $quantity = $_POST['quantity_' . $menu_id];
+            $status = 'รับออเดอร์';
 
             if ($quantity > 0) {
                 $price_result = $db->query("SELECT price FROM menu WHERE menu_id = $menu_id");
@@ -51,8 +52,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
 
                 $total_price = $quantity * $price;
 
-                $insert_order_item_sql = "INSERT INTO order_item (order_id, menu_id, quantity) 
-                                          VALUES ('$order_id', '$menu_id', '$quantity')";
+                $insert_order_item_sql = "INSERT INTO order_item (order_id, menu_id, quantity, status) 
+                VALUES ('$order_id', '$menu_id', '$quantity', '$status')";
+
 
                 if ($db->exec($insert_order_item_sql) !== TRUE) {
                     echo "Error inserting order item: " . $db->lastErrorMsg();
@@ -71,4 +73,3 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
     http_response_code(404);
     echo 'Not Found';
 }
-?>

@@ -20,9 +20,7 @@ $sql = "SELECT ord.*, o.*, m.name AS menu_name
         JOIN orders ord ON o.order_id = ord.order_id
         ORDER BY ord.table_id, o.orderitem_id;";
 
-
 $result = $db->query($sql);
-
 ?>
 
 <!DOCTYPE html>
@@ -41,14 +39,10 @@ $result = $db->query($sql);
         <span>เชฟ</span>
     </header>
     <top>
-        <div>
-            <div class="queue">
-                <!-- <div class="queue_frame">
-                    <img src="queuewithbg.png"></img>
-                    <div class="num_queue">3 คิว</div>
-                </div> -->
-            </div>
+
+        <div class="queue">
         </div>
+
 
         <div class="option_container">
             <div class="option-frame">
@@ -111,14 +105,14 @@ $result = $db->query($sql);
                         echo '</div>';
                         echo '<div class="right">';
                         echo '<input class="radiocheck" type="radio" id="option1" name="notyet" value="option1" style="display: none;">';
-                        echo '<label for="option' . $orderId . '" class="status" data-table-id="' . $tableId . '">กำลังทำ</label>';
+                        echo '<label for="option' . $orderId . '" class="status" data-table-id="' . $tableId . '" data-menu-id="' . $tableId . '">กำลังทำ</label>';
                         echo '</div>';
                         echo '</div>';
                     }
 
                     echo '</div>';
                     echo '<div class="button-update">';
-                    echo '<button>Update</button>';
+                    echo '<button id="updateButton">Update</button>';
                     echo '</div>';
                     echo '</div>';
                 } else {
@@ -131,49 +125,67 @@ $result = $db->query($sql);
         </div>
         <div class="space"></div>
     </div>
+    <?php echo $tableId; ?>
+
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             var statusLabels = document.querySelectorAll('.status');
+
+            // ประกาศตัวแปร tableId และ newStatus ไว้นอก loop หรือ event listener เพื่อให้สามารถเข้าถึงจากทุกที่
+            var tableId, newStatus;
+
             statusLabels.forEach(function(label) {
-
                 label.addEventListener('click', function() {
-
                     if (this.textContent === 'กำลังทำ') {
                         this.textContent = 'เสร็จสิ้น';
+                        tableId = this.dataset.tableId;
+                        newStatus = 'เสร็จสิ้น';
+                        console.log(newStatus, tableId);
                     } else {
                         this.textContent = 'กำลังทำ';
+                        tableId = this.dataset.tableId;
+                        newStatus = 'กำลังทำ';
+                        console.log(newStatus, tableId);
                     }
                 });
             });
-        });
 
-        function updateOrders() {
-            var selectedTableIds = [];
-
-            var statusLabels = document.querySelectorAll('.status:checked');
-            statusLabels.forEach(function(label) {
-                var tableId = label.dataset.tableId;
-                selectedTableIds.push(tableId);
+            // เลือกปุ่ม Update ด้วย ID หรือคลาสและเพิ่มการดักจับคลิก
+            var updateButton = document.getElementById('updateButton');
+            updateButton.addEventListener('click', function() {
+                if (tableId !== undefined && newStatus !== undefined) {
+                    updateOrderStatus(tableId, newStatus);
+                } else {
+                    console.error('Table ID or new status is undefined.');
+                }
             });
 
-            fetch('update_script.php', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        selectedTableIds: selectedTableIds,
-                    }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                    console.log('Data updated successfully:', data);
-                    // ทำสิ่งอื่น ๆ ที่คุณต้องการหลังจากการ insert
-                })
-                .catch(error => {
-                    console.error('Error updating data:', error);
-                });
-        }
+            function updateOrderStatus(tableId, newStatus) {
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'update_order_status.php', true);
+                xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+
+                xhr.onreadystatechange = function() {
+                    if (xhr.readyState == 4) {
+                        if (xhr.status == 200) {
+                            var response = JSON.parse(xhr.responseText);
+
+                            if (response.success) {
+                                console.log('Order status updated successfully.');
+                            } else {
+                                console.error('Error updating order status:', response.error);
+                            }
+                        } else {
+                            console.error('Error updating order status. HTTP status:', xhr.status);
+                        }
+                    }
+                };
+
+                // ส่งข้อมูลไปยังฟังก์ชัน update_order_status.php
+                var data = 'table_id=' + tableId + '&order_status=' + encodeURIComponent(newStatus);
+                xhr.send(data);
+            }
+        });
     </script>
 
 </body>

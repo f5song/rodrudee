@@ -13,9 +13,13 @@ if (!$db) {
     echo $db->lastErrorMsg();
 }
 
-$sql = "SELECT o.*, m.name as menu_name FROM orders o
+$sql = "SELECT ord.*, o.*, m.name AS menu_name
+        FROM order_item o
         JOIN menu m ON o.menu_id = m.menu_id
-        ORDER BY o.table_id, o.order_id;";
+        JOIN orders ord ON o.order_id = ord.order_id
+        ORDER BY ord.table_id, o.orderitem_id;";
+
+
 $result = $db->query($sql);
 
 ?>
@@ -92,7 +96,7 @@ $result = $db->query($sql);
                         $orderId = $row['order_id'];
                         $menuName = $row['menu_name'];
                         $quantity = $row['quantity'];
-                        $orderStatus = $row['order_status'];
+                        $orderStatus = $row['status'];
 
 
                         if ($tableId != $currentTableId) {
@@ -143,4 +147,4 @@ $result = $db->query($sql);
 
 </body>
 
-</html>
+</html> 

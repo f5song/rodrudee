@@ -104,7 +104,7 @@ $result = $db->query($sql);
                     </div>
                     <div class="each-order">
                         <div class="status" id="<?php echo ($row['order_status']) ?>">
-                            <?php echo $row['order_status']; ?>
+                            <?php echo $row['status']; ?>
                         </div>
                     </div>
                 </div>

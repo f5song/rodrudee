@@ -31,7 +31,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $_SESSION['table_id'] = $_POST['table'];
         $selectedTableId = $_SESSION['table_id'];
 
-        $selectOrdersQuery = "SELECT * FROM orders WHERE table_id = '$selectedTableId' AND pay_status = 'ยังไม่จ่าย'";
+        $selectOrdersQuery = "SELECT * FROM orders WHERE table_id = '$selectedTableId';";
         $ordersResult = $db->query($selectOrdersQuery);
 
         if ($ordersResult) {

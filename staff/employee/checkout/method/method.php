@@ -19,9 +19,12 @@ if (!$db) {
     echo $db->lastErrorMsg();
 }
 
-$sql = "SELECT o.*, m.name as menu_name FROM orders o
-        JOIN menu m ON o.menu_id = m.menu_id
+$sql = "SELECT o.*, m.name as menu_name, oi.*, m.* FROM orders o
+        JOIN order_item oi ON o.order_id = oi.order_id
+        JOIN menu m ON oi.menu_id = m.menu_id
+        WHERE o.table_id = '$tableId'
         ORDER BY o.table_id, o.order_id;";
+
 
 $tableInfoResult = $db->query($sql);
 
