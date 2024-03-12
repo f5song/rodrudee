@@ -11,45 +11,38 @@
     function redirectSearchPage() {
       window.location.href = 'search-table.html';
     }
-
   </script>
 
 </head>
 
 <body>
 
-  <header>
-    <img src="../../asset/profile.png" alt="profile">
-    <span>พนักงาน</span>
-  </header>
-  <top>
-    <div>
-      <div class="queue">
-        <div class="queue_frame">
-          <img src="../../asset/queuewithbg.png"></img>
-          <div class="num_queue">3 คิว</div>
+<header>
+        <img src="../../../asset/profile.png" alt="profile">
+        <span>พนักงาน</span>
+    </header>
+    <top>
+        <div>
+            <div class="queue">
+            </div>
+            <div class="yellow-bar"></div>
         </div>
-      </div>
-      <div class="yellow-bar"></div>
-    </div>
 
-    <div class="option_container">
-      <div class="option-frame">
-        <div class="option">
-          <img src="../../asset/cooking.png"></img>
-          <div class="option-name" id="status">เช็คสถานะอาหาร</div>
+        <div class="option_container">
+            <a href="state.php">
+                <div class="option">
+                    <img src="../../../asset/cooking.png" alt="cooking">
+                    <div class="option-name" id="status">เช็คสถานะอาหาร</div>
+                </div>
+            </a>
+            <a href="../checkout/search_table/search_table.php">
+                <div class="option">
+                    <img src="../../../asset/bill.png" alt="bill">
+                    <div class="option-name" id="payment">หน้าชำระเงิน</div>
+                </div>
+            </a>
         </div>
-      </div>
-
-      <div class="option-frame">
-        <div class="option">
-          <img src="../../asset/bill.png"></img>
-          <div class="option-name" id="payment">หน้าชำระเงิน</div>
-        </div>
-      </div>
-    </div>
-    </div>
-  </top>
+    </top>
   <content>
     <div class="table-information">
       <div class="table-num">

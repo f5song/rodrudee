@@ -25,16 +25,7 @@ $sql = "SELECT o.*, m.name as menu_name, oi.*, m.* FROM orders o
         WHERE o.table_id = '$tableId'
         ORDER BY o.table_id, o.order_id;";
 
-
 $tableInfoResult = $db->query($sql);
-
-if ($tableInfoResult) {
-    $tableInfo = $tableInfoResult->fetchArray(SQLITE3_ASSOC);
-} else {
-    $tableInfo = array();
-}
-
-$orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
 
 ?>
 <!DOCTYPE html>
@@ -64,20 +55,22 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
         </div>
 
         <div class="option_container">
-            <div class="option-frame">
-                <div class="option">
-                    <img src="../../../asset/cooking.png"></img>
-                    <div class="option-name" id="status">เช็คสถานะอาหาร</div>
+            <a href="state.php">
+                <div class="option-frame">
+                    <div class="option">
+                        <img src="../../../asset/cooking.png">
+                        <div class="option-name" id="status">เช็คสถานะอาหาร</div>
+                    </div>
                 </div>
-            </div>
-
-            <div class="option-frame">
-                <div class="option">
-                    <img src="../../../asset/bill.png"></img>
-                    <div class="option-name" id="payment">หน้าชำระเงิน</div>
+            </a>
+            <a href="../checkout/search_table/search_table.php">
+                <div class="option-frame">
+                    <div class="option">
+                        <img src="../../../asset/bill.png">
+                        <div class="option-name" id="payment">หน้าชำระเงิน</div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </a>
         </div>
 
     </top>
@@ -105,14 +98,10 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
 
                 <div class="line-under-topic"></div>
                 <?php
-
                 if ($tableInfoResult) {
                     $orderCount = 1;
                     $totalPrice = 0;
-                    $menuQuantities = array(); // เก็บจำนวนของแต่ละ menu_id
                     while ($row = $tableInfoResult->fetchArray(SQLITE3_ASSOC)) {
-                        $menuId = $row['menu_id'];
-                        $menuQuantities[$menuId] = isset($menuQuantities[$menuId]) ? $menuQuantities[$menuId] + $row['quantity'] : $row['quantity'];
                 ?>
                         <div class="topic" id="table-order">
                             <div class="each-order">
@@ -137,7 +126,6 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
                 ?>
             </div>
         </div>
-        </div>
 
         <div class="total">รวม ฿<?php echo number_format($totalPrice, 2); ?> บาท</div>
         <br>
@@ -145,40 +133,49 @@ $orderId = isset($tableInfo['order_id']) ? $tableInfo['order_id'] : 0;
     </content>
     <pay-method>
         <div class="button-container">
-            <button class="button" onclick="makePayment('cash')">จ่ายด้วยเงินสด</button>
-            <button class="button" onclick="makePayment('QRCode')">โอนจ่าย</button>
+            <!-- Call makePayment function with the selected payment method and totalprice -->
+            <button class="button" onclick="makePayment('เงินสด', <?php echo $totalPrice; ?>)">เงินสด</button>
+            <button class="button" onclick="makePayment('สแกนจ่าย', <?php echo $totalPrice; ?>)">สแกนจ่าย</button>
         </div>
         <br>
     </pay-method>
 
-    <script>
-        function makePayment(paymentMethod) {
-            // สร้าง XMLHttpRequest object
-            var xhr = new XMLHttpRequest();
-            // กำหนด method และ URL สำหรับการส่ง request
-            xhr.open("POST", "insert_transaction.php", true);
-            // กำหนด header ของ request
-            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            // กำหนด callback function ที่จะถูกเรียกเมื่อ request เสร็จสิ้น
-            xhr.onload = function() {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    // การทำงานเมื่อ request เสร็จสิ้นด้วยสถานะที่เป็น 2xx
-                    console.log(xhr.responseText);
-                    // ตรวจสอบคำตอบจาก server และดำเนินการต่อตามต้องการ
-                } else {
-                    // การทำงานเมื่อ request เสร็จสิ้นด้วยสถานะที่ไม่ใช่ 2xx
-                    console.error(xhr.statusText);
+<script>
+    function makePayment(paymentMethod, totalprice) {
+        // สร้าง XMLHttpRequest object
+        var xhr = new XMLHttpRequest();
+        // กำหนด method และ URL สำหรับการส่ง request
+        xhr.open("POST", "update_transactions.php", true);
+        // กำหนด header ของ request
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        // กำหนด callback function ที่จะถูกเรียกเมื่อ request เสร็จสิ้น
+        xhr.onload = function () {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // การทำงานเมื่อ request เสร็จสิ้นด้วยสถานะที่เป็น 2xx
+                console.log(xhr.responseText);
+
+                // ตรวจสอบ paymentMethod และทำการ redirect ไปยังหน้าที่ต้องการ
+                if (paymentMethod === 'เงินสด') {
+                    window.location.href = '../pay_cash/pay_cash.php';
+                } else if (paymentMethod === 'สแกนจ่าย') {
+                    window.location.href = '../pay_promtpay/pay_promtpay.php';
                 }
-            };
-            // ตรวจสอบ error ในการส่ง request
-            xhr.onerror = function() {
-                console.error("Request failed");
-            };
-            // ทำการส่ง request พร้อมกับข้อมูลที่ต้องการส่งไปยัง server
-            var data = "payment_method=" + encodeURIComponent(paymentMethod);
-            xhr.send(data);
-        }
-    </script>
+            } else {
+                // การทำงานเมื่อ request เสร็จสิ้นด้วยสถานะที่ไม่ใช่ 2xx
+                console.error(xhr.statusText);
+            }
+        };
+        // ตรวจสอบ error ในการส่ง request
+        xhr.onerror = function () {
+            console.error("Request failed");
+        };
+        // ทำการส่ง request พร้อมกับข้อมูลที่ต้องการส่งไปยัง server
+        var data = "payment_method=" + encodeURIComponent(paymentMethod) + "&totalprice=" + encodeURIComponent(totalprice);
+        xhr.send(data);
+    }
+</script>
+
+
 
 </body>
 

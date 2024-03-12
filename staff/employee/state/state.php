@@ -46,21 +46,18 @@ $result = $db->query($sql);
             </div>
             <div class="yellow-bar"></div>
         </div>
+
         <div class="option_container">
             <a href="state.php">
-                <div class="option-frame">
-                    <div class="option">
-                        <img src="../../asset/cooking.png">
-                        <div class="option-name" id="status">เช็คสถานะอาหาร</div>
-                    </div>
+                <div class="option">
+                    <img src="../../asset/cooking.png" alt="cooking">
+                    <div class="option-name" id="status">เช็คสถานะอาหาร</div>
                 </div>
             </a>
             <a href="../checkout/search_table/search_table.php">
-                <div class="option-frame">
-                    <div class="option">
-                        <img src="../../asset/bill.png">
-                        <div class="option-name" id="payment">หน้าชำระเงิน</div>
-                    </div>
+                <div class="option">
+                    <img src="../../asset/bill.png" alt="bill">
+                    <div class="option-name" id="payment">หน้าชำระเงิน</div>
                 </div>
             </a>
         </div>
@@ -136,4 +133,4 @@ $result = $db->query($sql);
 
 </body>
 
-</html>
+</html> 
