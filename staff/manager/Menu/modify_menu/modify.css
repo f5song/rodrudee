@@ -21,7 +21,7 @@ body {
 }
 
 header {
-    background-color: url(../../../../foodimg/);
+    background-color: #232D3F;
     color: #fff;
     padding: 8px;
     display: flex;
