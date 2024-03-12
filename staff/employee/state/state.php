@@ -43,20 +43,6 @@ $result = $db->query($sql);
     <top>
         <div>
             <div class="queue">
-                <!-- <div class="queue_frame"> -->
-                <!-- <img src="../../asset/queuewithbg.png" alt="queue"> -->
-                <!-- <div class="num_queue">
-                        <?php
-                        // if ($result) {
-                        //     $numBoxes = $result->num_rows;
-                        //     echo "$numBoxes คิว";
-                        // } else {
-                        //     echo "0 คิว";
-                        // }
-                        // 
-                        ?>
-                    </div> -->
-                <!-- </div> -->
             </div>
             <div class="yellow-bar"></div>
         </div>

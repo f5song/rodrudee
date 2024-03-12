@@ -50,6 +50,7 @@
                     <select class="select-role" id="role" name="role" required>
                         <option value="chef">เชฟ</option>
                         <option value="employee">พนักงาน</option>
+                        <option value="manager">ผู้จัดการ</option>
                     </select>
                 </div>
 
