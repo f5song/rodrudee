@@ -78,3 +78,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['order_submit'])) {
     http_response_code(404);
     echo 'Not Found';
 }
+?>

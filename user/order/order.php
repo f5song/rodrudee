@@ -45,6 +45,7 @@ if (!$db) {
         <nav>
             <a href="../homepage">หน้าหลัก</a>
             <a href="order.php">รายการอาหาร</a>
+            <a href="../foodlist/foodlist.php?table_id=<?php echo $selectedTable; ?>">ออเดอร์</a>
         </nav>
     </header>
 
