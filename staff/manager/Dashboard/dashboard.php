@@ -1,7 +1,7 @@
 <?php
 $db = new SQLite3('../../../../rodrudee.db');
 if (!$db) {
-    die("Connection failed: " . $db->lastErrorMsg());
+    die("การเชื่อมต่อล้มเหลว: " . $db->lastErrorMsg());
 }
 ?>
 
@@ -72,32 +72,36 @@ if (!$db) {
     include('daily.php');
   }
 
-  $query = "SELECT menu.name, COUNT(orders.menu_id) AS total_orders
-              FROM menu
-              JOIN orders ON menu.menu_id = orders.menu_id
-              GROUP BY menu.menu_id
-              ORDER BY total_orders ASC
-              LIMIT 5";
+  // $query = "SELECT m.name, COUNT(oi.menu_id) AS total_orders
+  // FROM menu m
+  // JOIN order_item oi ON m.menu_id=oi.menu_id
+  // GROUP BY m.menu_id
+  // ORDER BY total_orders DESC
+  // LIMIT 5;";
 
-  $result = $db->query($query);
+  // $result = $db->query($query);
 
-  echo '<p class="best-seller"> รายการขายดีที่สุด </p>';
-  echo '<div class="box-test1-container">';
+  // if (!$result) {
+  //   die("คิวรีล้มเหลว: " . $db->lastErrorMsg());
+  // }
 
-  while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-    echo '<div class="box-test1-container">';
-    echo '<div class="box-test1">';
-    echo '<p class="p-name"><h3>' . $row["name"] . '</h3></p>';
-    echo '<p class="p-name">' . $row["total_orders"] . ' คำสั่ง' . '</p>';
-    echo '</div>';
-  }
+  // echo '<p class="best-seller"> รายการขายดีที่สุด </p>';
+  // echo '<div class="box-test1-container">';
+
+  // while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+  //   echo '<div class="box-test1-container">';
+  //   echo '<div class="box-test1">';
+  //   echo '<p class="p-name"><h3>' . $row["name"] . '</h3></p>';
+  //   echo '<p class="p-name">' . $row["total_orders"] . ' คำสั่ง' . '</p>';
+  //   echo '</div>';
+  // }
 
   echo '</div>';
   ?>
 
   <script>
     document.getElementById("menumodify").addEventListener("click", function() {
-      window.location.href = "../Menu/view_menu/menu.php";
+      window.location.href = "../menu/view_menu/menu.php";
     });
   </script>
 

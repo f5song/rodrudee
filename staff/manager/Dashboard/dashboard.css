@@ -13,15 +13,6 @@ body {
     font-family: 'Moh Luang';
 }
 
-@font-face {
-    font-family: 'Moh Luang';
-    src: url('../menu/Moh-Luang.ttf') format('opentype');
-}
-
-@font-face {
-    font-family: 'PGVIM';
-    src: url('../menu/PGVIM.ttf') format('opentype');
-}
 
 ้h1{
     font-family: 'Moh Luang';

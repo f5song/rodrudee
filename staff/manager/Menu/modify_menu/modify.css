@@ -12,16 +12,16 @@ body {
 
 @font-face {
     font-family: 'Moh Luang';
-    src: url('../menu/Moh-Luang.ttf') format('opentype');
+    src: url('../../../../font/Moh-Luang.otf') format('opentype');
 }
 
 @font-face {
     font-family: 'PGVIM';
-    src: url('../menu/PGVIM.ttf') format('opentype');
+    src: url('../../../../font/PGVIM.ttf') format('opentype');
 }
 
 header {
-    background-color: url(../../../../foodimg/);
+    background-color: #232D3F;
     color: #fff;
     padding: 8px;
     display: flex;

@@ -2,27 +2,35 @@
     <div class="row">
         <div class="col-md-12">
             <?php
-            $query = "
-
-            SELECT order_id,total, SUM(total) AS total_sum, DATE_FORMAT(transaction_time, '%Y') AS datesave
-            FROM transactions
-            GROUP BY DATE_FORMAT(transaction_time, '%Y')
-            ORDER BY transaction_time DESC
-            ";
-            $result = mysqli_query($con, $query);
-            $resultchart = mysqli_query($con, $query);
-
-            $datesave = array();
-            $total = array();
-            while($rs = mysqli_fetch_array($resultchart)){
-            $datesave[] = "\"".$rs['datesave']."\"";
-            $total_sum[] = "\"".$rs['total_sum']."\"";
+            // Connect to SQLite database
+            $db = new SQLite3('../../../rodrudee.db');
+            if (!$db) {
+                die("Connection failed: " . $db->lastErrorMsg());
             }
+
+            $query = "
+                SELECT order_id,total, SUM(total) AS total_sum, strftime('%Y', transaction_time) AS datesave
+                FROM transactions
+                GROUP BY strftime('%Y', transaction_time)
+                ORDER BY transaction_time DESC
+            ";
+
+            $result = $db->query($query);
+            $resultchart = $db->query($query);
+
+            //for chart
+            $datesave = array();
+            $total_sum = array();
+
+            while ($rs = $resultchart->fetchArray(SQLITE3_ASSOC)) {
+                $datesave[] = "\"" . $rs['datesave'] . "\"";
+                $total_sum[] = "\"" . $rs['total_sum'] . "\"";
+            }
+
             $datesave = implode(",", $datesave);
             $total_sum = implode(",", $total_sum);
-            
             ?>
-            
+
             <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.bundle.js"></script>
             <hr>
             <p align="center">
@@ -80,23 +88,28 @@
                         </tr>
                     </thead>
                     
-                    <?php while($row = mysqli_fetch_array($result)) { ?>
-                    <tr>
-                        <td><?php echo $row['datesave'];?></td>
-                        <td align="right"><?php echo number_format($row['total_sum'],2);?></td>
-                    </tr>
                     <?php
-                    @$amount_total += $row['total_sum'];
+                    $amount_total = 0;
+                    while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+                    ?>
+                        <tr>
+                            <td><?php echo $row['datesave'];?></td>
+                            <td align="right"><?php echo number_format($row['total_sum'], 2);?></td>
+                        </tr>
+                    <?php
+                        $amount_total += $row['total_sum'];
                     }
                     ?>
                     <tr class="table-danger">
                         <td align="center">รวม</td>
                         <td align="right"><b>
-                        <?php echo number_format($amount_total,2);?></b></td></td>
+                        <?php echo number_format($amount_total, 2);?></b></td></td>
                     </tr>
                 </table>
             </div>
-            <?php mysqli_close($con);?>
+            <?php
+            $db->close();
+            ?>
         </div>
     </div>
 </div>

@@ -12,15 +12,6 @@ body {
     background-color: #FFF8EE;
 }
 
-@font-face {
-    font-family: 'Moh Luang';
-    src: url('../menu/Moh-Luang.ttf') format('opentype');
-}
-
-@font-face {
-    font-family: 'PGVIM';
-    src: url('../menu/PGVIM.ttf') format('opentype');
-}
 
 .manager-header {
     background-color: #232D3F;
