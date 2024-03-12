@@ -136,13 +136,14 @@ header img {
     100% { transform: translateX(0); }
 }
 .box {
-    width: 100%;
+    width: auto;
     background-color: #C7D8E9;
     max-width: 1600px; 
     display: flex;
     flex-wrap: wrap; 
-    gap: 10px; 
+    gap: 20px; 
     padding: 20px;
+    justify-content: center;
 }
 
 .bottom-content{
