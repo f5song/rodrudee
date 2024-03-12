@@ -36,6 +36,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             } elseif ($role === "employee") {
                 header("Location: ../employee/state/state.php");
                 exit;
+            } elseif ($role === "manager") {
+                header("Location: ../manager/menu/view_menu/menu.php");
+                exit;
             } else {
                 echo "ไม่พบบทบาทที่ถูกกำหนด";
             }
