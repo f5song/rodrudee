@@ -9,10 +9,17 @@ if (isset($_SESSION['table_id']) && !empty($_SESSION['table_id'])) {
         die("การเชื่อมต่อล้มเหลว: " . $db->lastErrorMsg());
     }
 
-    $updateQuery = "UPDATE tables SET table_status = 'ว่าง' WHERE table_id = '$tableId'";
-    $result = $db->exec($updateQuery);
+    $updateTableQuery = "UPDATE tables SET table_status = 'ว่าง' WHERE table_id = '$tableId'";
+    $resultTable = $db->exec($updateTableQuery);
 
-    if (!$result) {
+    if (!$resultTable) {
+        echo $db->lastErrorMsg();
+    }
+
+    $updateOrderQuery = "UPDATE orders SET order_status = 'จ่ายแล้ว' WHERE table_id = '$tableId'";
+    $resultOrder = $db->exec($updateOrderQuery);
+
+    if (!$resultOrder) {
         echo $db->lastErrorMsg();
     }
 

@@ -37,6 +37,7 @@ $result = $db->query($sql);
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="style.css">
+    <title>ดูออเดอร์</title>
 </head>
 
 <body>

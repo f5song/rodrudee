@@ -51,11 +51,12 @@ $result = $db->query($sql);
             </div>
         </div>
     </top>
+
     <div class="content">
         <div class="space"></div>
         <div class="center-content">
-            <div class="box">
 
+            <div class="box">
                 <?php
                 if ($result) {
                     $currentTableId = null;
@@ -126,6 +127,13 @@ $result = $db->query($sql);
 
             statusLabels.forEach(function(label) {
                 label.addEventListener('click', function() {
+                    // กำหนดสีตามสถานะ
+                    var color = (this.textContent === 'กำลังทำ') ? '#00ff00' : '#ffff00'; 
+
+                    // เปลี่ยนสีของ text ใน element
+                    this.style.color = color;
+
+                    // เพิ่ม orderitemIds และ newStatuses เข้าไปใน array
                     if (this.textContent === 'กำลังทำ') {
                         this.textContent = 'เสร็จสิ้น';
                         orderitemIds.push(this.dataset.orderitemId);
@@ -137,6 +145,7 @@ $result = $db->query($sql);
                     }
                 });
             });
+
 
             updateButton.addEventListener('click', function() {
                 if (orderitemIds.length > 0) {

@@ -35,7 +35,7 @@ $tableInfoResult = $db->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Payment Method</title>
+    <title>พนักงาน - หน้าชำระเงิน</title>
 
 </head>
 

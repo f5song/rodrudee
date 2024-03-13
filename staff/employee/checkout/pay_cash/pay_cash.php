@@ -35,7 +35,7 @@ $tableInfoResult = $db->query($sql);
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="styles.css">
-  <title>Payment Confirmation</title>
+  <title>พนักงาน - จ่ายเงินเรียบร้อย</title>
 </head>
 
 <body>
